@@ -40,31 +40,43 @@
 
 package org.glassfish.admingui.devtests;
 
-import org.junit.*;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
-import org.openqa.selenium.*;
+import static org.junit.Assert.assertEquals;
+
 /**
  * 
  * @author jeremylv
  *
  */
-public class DomainTest extends BaseSeleniumTestClass {
+public class ConfigTest extends BaseSeleniumTestClass {
 
+    public static final String ID_CLUSTERS_TABLE = "propertyForm:configs";
+    
     @Test
-    public void testAttributeTab() throws Exception {
-        driver.get(baseUrl + "/common/index.jsf");
-        clickByIdAction("treeForm:tree:nodes:nodes_link");
-        clearByIdAction("propertyForm:propertySheet:propertSectionTextField:localeProp:Locale");
-        sendKeysByIdAction("propertyForm:propertySheet:propertSectionTextField:localeProp:Locale", "en");
-        clickByIdAction("propertyForm:propertyContentPage:topButtons:saveButton");
-        assertEquals("New values successfully saved.", driver.findElement(By.cssSelector("span.label_sun4")).getText());
-        clickByIdAction("treeForm:tree:nodes:nodes_link");
+    public void testConfig() {
+        final String configName= "test-config-"+generateRandomString();
+        gotoConfigPage();
+        clickByIdAction("propertyForm:configs:topActionsGroup1:newButton");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:NameProp:Name", configName);
+        clickByIdAction("propertyForm:propertyContentPage:topButtons:okButton");
+        
+        String prefix = getTableRowByValue(ID_CLUSTERS_TABLE, configName, "col1");
         try {
-            assertEquals("en", getValue("propertyForm:propertySheet:propertSectionTextField:localeProp:Locale", "value"));
+            assertEquals(configName, getText(prefix + "col1:link"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
-        }
-    }
+        };
 
+        String clickId = getTableRowByValue(ID_CLUSTERS_TABLE, configName, "col1")+"col0:select";
+        clickByIdAction(clickId);
+        clickByIdAction("propertyForm:configs:topActionsGroup1:button1");
+        closeAlertAndGetItsText();
+        waitForAlertProcess("modalBody");
+    }
+    
+    public void gotoConfigPage(){
+        driver.get(baseUrl + "/common/index.jsf");
+        clickByIdAction("treeForm:tree:configurations:configurations_link");
+    }
 }
