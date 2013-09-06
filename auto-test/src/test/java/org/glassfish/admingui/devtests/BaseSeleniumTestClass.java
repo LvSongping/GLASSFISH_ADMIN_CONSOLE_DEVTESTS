@@ -274,14 +274,19 @@ public class BaseSeleniumTestClass {
     }
     
     public void isElementPresent(String idName){
-        final WebElement element = (WebElement) driver.findElement(By.id(idName));
-        while(!element.isDisplayed()){
+        while(!driver.findElement(By.id(idName)).isDisplayed()){
             sleep(500);
         }
     }
     
     public void isCheckboxSelected(String checkbox){
         while(driver.findElement(By.id(checkbox)).isSelected()){
+            sleep(500);
+        }
+    }
+    
+    public void isClassPresent(String className){
+        while(!driver.findElement(By.className(className)).isDisplayed()){
             sleep(500);
         }
     }
