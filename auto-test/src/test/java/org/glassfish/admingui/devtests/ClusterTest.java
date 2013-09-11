@@ -65,22 +65,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     public static final String ID_INSTANCES_START_BTN = "propertyForm:instancesTable:topActionsGroup1:button2";
     public static final String ID_INSTANCES_STOP_BTN = "propertyForm:instancesTable:topActionsGroup1:button3";
     
-    public static final String TRIGGER_CLUSTER_NO_RUNNING_INSTANCES = "i18ncs.cluster.migrateEjbTimersNoRunningInstance";
-    public static final String TRIGGER_CONFIGURATION_TEXT = "i18n.configuration.pageTitleHelp";
-    public static final String TRIGGER_MIGRATE_EJB_TIMERS = "i18ncs.cluster.migrateEjbTimersHelp";
-    public static final String TRIGGER_CLUSTER_PAGE = "i18ncs.clusters.PageTitleHelp";
-    public static final String TRIGGER_NEW_CLUSTER_PAGE = "i18ncs.clusterNew.PageTitleHelp";
-    public static final String TRIGGER_CLUSTER_GENERAL_PAGE = "i18ncs.cluster.GeneralTitleHelp";
-    public static final String TRIGGER_CLUSTER_INSTANCE_NEW_PAGE = "i18ncs.clusterInstanceNew.PageTitleHelp";
-    public static final String TRIGGER_CLUSTER_INSTANCES_PAGE = "i18ncs.cluster.InstancesTitleHelp";
-    public static final String TRIGGER_CLUSTER_RESOURCES_PAGE = "i18ncs.cluster.ResourcesTitleHelp";
-    public static final String TRIGGER_CLUSTER_SYSTEM_PROPERTIES = "i18ncs.cluster.ClusterSystemProperties";
     
-    protected static final int DELETE_WAIT_TIME = 10000;
-    protected static final int START_WAIT_TIME = 30000;
-    protected static final int STOP_WAIT_TIME = 20000;
-    protected static final int CREATE_WAIT_TIME = 10000;
-
     //Case 1:
     @Test
     public void testClusterCreationAndDeletion() throws Exception {
@@ -223,111 +208,145 @@ public class ClusterTest extends BaseSeleniumTestClass {
         deleteCluster(clusterName);
     }
     
-//    //Case 7
-//    @Test
-//    public void testClusterWithJmsOptions() {
-//        String clusterName = "cluster" + generateRandomString();
-//        gotoClusterPage();
-//        clickByIdAction("propertyForm:clustersTable:topActionsGroup1:newButton");
-//        sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
-//        clickByIdAction("propertyForm:propertySheet:propertySectionTextField:jmsConfigTypeProp:optCustom:optCustom_label");
-//        sleep(1000);
-//        clickByIdAction("propertyForm:jmsTypePropertySheet:jmsTypeSection:jmsTypeProp:optLocal");
-//        clickByIdAction("propertyForm:jmsPropertySheet:configureJmsClusterSection:ClusterTypeProp:optConventional");
-//        
-//        Select select = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:ConfigStoreTypeProp:configStoreType")));
-//        select.selectByVisibleText("Master Broker");
-//        
-//        Select select1 = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:MessageStoreTypeProp:messageStoreType")));
-//        select1.selectByVisibleText("File");
-//        
-//        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:PropertiesProp:properties", "prop1=value1:prop2=value2\\:with\\:colons:prop3=value3");
-//
-//        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
-//        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
-//        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in1");
-//        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
-//        sleep(500);
-//        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
-//        sleep(500);
-//        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in2");
-//        clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
-//        
-//        String clickId = getTableRowByValue(ID_CLUSTERS_TABLE, clusterName, "col1")+"col1:link";
-//        clickByIdAction(clickId);
-//        assertEquals(clusterName, getText("propertyForm:propertySheet:propertSectionTextField:clusterNameProp:clusterName"));
-//        
-//        deleteCluster(clusterName);
-//    }
-//    
-//    //Case 8
-//    @Test
-//    public void testClusterWithEnhancedJmsOptions() {
-//        String clusterName = "cluster" + generateRandomString();
-//        gotoClusterPage();
-//        clickByIdAction("propertyForm:clustersTable:topActionsGroup1:newButton");
-//        sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
-//        clickByIdAction("propertyForm:propertySheet:propertySectionTextField:jmsConfigTypeProp:optCustom:optCustom_label");
-//        sleep(1000);
-//        clickByIdAction("propertyForm:jmsTypePropertySheet:jmsTypeSection:jmsTypeProp:optLocal");
-//        clickByIdAction("propertyForm:jmsPropertySheet:configureJmsClusterSection:ClusterTypeProp:optEnhanced");
-//        
-//        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:DbVendorProp:dbVendor", "mysql");
-//        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:DbUserProp:dbUser", "root");
-//        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:DbUrlProp:dbUrl", "jdbc:mysql://hostname:portno/dbname?password=xxx");
-//        
-//        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
-//        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
-//        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in1");
-//        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
-//        sleep(500);
-//        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
-//        sleep(500);
-//        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in2");
-//        clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
-//        
-//        String clickId = getTableRowByValue(ID_CLUSTERS_TABLE, clusterName, "col1")+"col1:link";
-//        clickByIdAction(clickId);
-//        assertEquals(clusterName, getText("propertyForm:propertySheet:propertSectionTextField:clusterNameProp:clusterName"));
-//        
-//        deleteCluster(clusterName);
-//    }
-//    
-//    //Case 9
-//    @Test
-//    public void testClusterWithBadJmsOptions() {
-//        String clusterName = "cluster" + generateRandomString();
-//        gotoClusterPage();
-//        clickByIdAction("propertyForm:clustersTable:topActionsGroup1:newButton");
-//        sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
-//        clickByIdAction("propertyForm:propertySheet:propertySectionTextField:jmsConfigTypeProp:optCustom:optCustom_label");
-//        sleep(1000);
-//        clickByIdAction("propertyForm:jmsTypePropertySheet:jmsTypeSection:jmsTypeProp:optLocal");
-//        clickByIdAction("propertyForm:jmsPropertySheet:configureJmsClusterSection:ClusterTypeProp:optConventional");
-//        
-//        Select select = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:ConfigStoreTypeProp:configStoreType")));
-//        select.selectByVisibleText("Master Broker");
-//        
-//        Select select1 = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:MessageStoreTypeProp:messageStoreType")));
-//        select1.selectByVisibleText("JDBC");
-//        
-//        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
-//        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
-//        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in1");
-//        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
-//        sleep(500);
-//        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
-//        sleep(500);
-//        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in2");
-//        clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
-//        
-//        assertTrue((driver.findElement(By.className("header_sun4")).getText().indexOf(" An error occurred") != -1));
-//    }
+    //Case 7
+    @Test
+    public void testClusterWithJmsOptions() {
+        String clusterName = "cluster" + generateRandomString();
+        gotoClusterPage();
+        clickByIdAction("propertyForm:clustersTable:topActionsGroup1:newButton");
+        sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
+        clickByIdAction("propertyForm:propertySheet:propertySectionTextField:jmsConfigTypeProp:optCustom:optCustom_label");
+        sleep(1000);
+        clickByIdAction("propertyForm:jmsTypePropertySheet:jmsTypeSection:jmsTypeProp:optLocal");
+        clickByIdAction("propertyForm:jmsPropertySheet:configureJmsClusterSection:ClusterTypeProp:optConventional");
+        
+        Select select = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:ConfigStoreTypeProp:configStoreType")));
+        select.selectByVisibleText("Master Broker");
+        
+        Select select1 = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:MessageStoreTypeProp:messageStoreType")));
+        select1.selectByVisibleText("File");
+        
+        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:PropertiesProp:properties", "prop1=value1:prop2=value2\\:with\\:colons:prop3=value3");
+
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
+        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in1");
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        sleep(500);
+        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
+        sleep(500);
+        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in2");
+        clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
+        
+        String clickId = getTableRowByValue(ID_CLUSTERS_TABLE, clusterName, "col1")+"col1:link";
+        clickByIdAction(clickId);
+        assertEquals(clusterName, getText("propertyForm:propertySheet:propertSectionTextField:clusterNameProp:clusterName"));
+        
+        deleteCluster(clusterName);
+    }
     
-//    @Test
-//    public void testClusterResourcesPage() {
-//        
-//    }
+    //Case 8
+    @Test
+    public void testClusterWithEnhancedJmsOptions() {
+        String clusterName = "cluster" + generateRandomString();
+        gotoClusterPage();
+        clickByIdAction("propertyForm:clustersTable:topActionsGroup1:newButton");
+        sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
+        clickByIdAction("propertyForm:propertySheet:propertySectionTextField:jmsConfigTypeProp:optCustom:optCustom_label");
+        sleep(1000);
+        clickByIdAction("propertyForm:jmsTypePropertySheet:jmsTypeSection:jmsTypeProp:optLocal");
+        clickByIdAction("propertyForm:jmsPropertySheet:configureJmsClusterSection:ClusterTypeProp:optEnhanced");
+        
+        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:DbVendorProp:dbVendor", "mysql");
+        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:DbUserProp:dbUser", "root");
+        setFieldValue("propertyForm:jmsPropertySheet:configureJmsClusterSection:DbUrlProp:dbUrl", "jdbc:mysql://hostname:portno/dbname?password=xxx");
+        
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
+        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in1");
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        sleep(500);
+        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
+        sleep(500);
+        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in2");
+        clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
+        
+        String clickId = getTableRowByValue(ID_CLUSTERS_TABLE, clusterName, "col1")+"col1:link";
+        clickByIdAction(clickId);
+        assertEquals(clusterName, getText("propertyForm:propertySheet:propertSectionTextField:clusterNameProp:clusterName"));
+        
+        deleteCluster(clusterName);
+    }
+    
+    //Case 9
+    @Test
+    public void testClusterWithBadJmsOptions() {
+        String clusterName = "cluster" + generateRandomString();
+        gotoClusterPage();
+        clickByIdAction("propertyForm:clustersTable:topActionsGroup1:newButton");
+        sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
+        clickByIdAction("propertyForm:propertySheet:propertySectionTextField:jmsConfigTypeProp:optCustom:optCustom_label");
+        sleep(1000);
+        clickByIdAction("propertyForm:jmsTypePropertySheet:jmsTypeSection:jmsTypeProp:optLocal");
+        clickByIdAction("propertyForm:jmsPropertySheet:configureJmsClusterSection:ClusterTypeProp:optConventional");
+        
+        Select select = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:ConfigStoreTypeProp:configStoreType")));
+        select.selectByVisibleText("Master Broker");
+        
+        Select select1 = new Select(driver.findElement(By.id("propertyForm:jmsPropertySheet:configureJmsClusterSection:MessageStoreTypeProp:messageStoreType")));
+        select1.selectByVisibleText("JDBC");
+        
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
+        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in1");
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        sleep(500);
+        clearByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name");
+        sleep(500);
+        sendKeysByIdAction("propertyForm:basicTable:rowGroup1:0:col2:name", clusterName + "in2");
+        clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
+        
+        assertTrue((driver.findElement(By.className("header_sun4")).getText().indexOf(" An error occurred") != -1));
+    }
+    
+    @Test
+    public void testClusterResourcesPage() {
+        final String jndiName = "jdbcResource" + generateRandomString();
+        String target = "cluster" + generateRandomString();
+        final String description = "devtest test for cluster->resources page- " + jndiName;
+        final String tableID = "propertyForm:resourcesTable";
+
+        JdbcTest jdbcTest = new JdbcTest();
+        jdbcTest.createJDBCResource(jndiName, description, target, "cluster");
+
+        clickAndWait("treeForm:tree:clusterTreeNode:clusterTreeNode_link");
+        String prefix = getTableRowByValue(ID_CLUSTERS_TABLE, target, "col1");
+        String clickId = prefix + "col1:link";
+        clickByIdAction(clickId);
+        clickAndWait("propertyForm:clusterTabs:clusterResources");
+        String resourcePrefix = getTableRowByValue(tableID, jndiName, "col1");
+        assertTrue(isTextPresent(resourcePrefix, jndiName, tableID));
+
+        int jdbcCount = getTableRowCountByValue(tableID, "JDBC Resources", "col3:type");
+        int customCount = getTableRowCountByValue(tableID, "Custom Resources", "col3:type");
+
+        EnterpriseServerTest adminServerTest = new EnterpriseServerTest();
+        Select select = new Select(driver.findElement(By.id("propertyForm:resourcesTable:topActionsGroup1:filter_list")));
+        select.selectByVisibleText("Custom Resources");
+        adminServerTest.waitForTableRowCount(tableID, customCount);
+
+        select = new Select(driver.findElement(By.id("propertyForm:resourcesTable:topActionsGroup1:filter_list")));
+        select.selectByVisibleText("JDBC Resources");
+        adminServerTest.waitForTableRowCount(tableID, jdbcCount);
+
+        clickId = getTableRowByValue(tableID, jndiName, "col1") + "col1:link";
+        clickByIdAction(clickId);
+        waitForButtonEnabled("propertyForm:propertyContentPage:topButtons:saveButton");
+        clickByIdAction("propertyForm:propertyContentPage:topButtons:saveButton");
+
+        jdbcTest.deleteJDBCResource(jndiName, target, "cluster");
+    }
+
     //Case 10
     @Test
     public void testMultiDeleteClusters() {
@@ -373,6 +392,8 @@ public class ClusterTest extends BaseSeleniumTestClass {
         clearByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText");
         sendKeysByIdAction("propertyForm:propertySheet:propertySectionTextField:NameTextProp:NameText", clusterName);
         clickByIdAction("propertyForm:propertyContentPage:topButtons:newButton");
+        String prefix = getTableRowByValue(ID_CLUSTERS_TABLE, clusterName, "col1");
+        assertEquals(clusterName, getText(prefix + "col1:link"));
     }
     
     public void createCluster(String clusterName, String instanceName){
@@ -414,6 +435,9 @@ public class ClusterTest extends BaseSeleniumTestClass {
     
     public void deleteAllCluster(){
         gotoClusterPage();
+        if (getTableRowCount(ID_CLUSTERS_TABLE) == 0) {
+            return;
+        }
         clickByIdAction("propertyForm:clustersTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
         clickByIdAction(ID_CLUSTERS_DELETE_BTN);
         closeAlertAndGetItsText();

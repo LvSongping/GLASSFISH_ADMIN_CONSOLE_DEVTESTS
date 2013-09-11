@@ -44,8 +44,6 @@ import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -54,6 +52,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -68,7 +67,7 @@ import com.thoughtworks.selenium.Selenium;
 public class BaseSeleniumTestClass {
 
     protected static WebDriver driver;
-    public String baseUrl;
+    public String baseUrl = "http://localhost:4848/";
     public StringBuffer verificationErrors = new StringBuffer();
     public boolean acceptNextAlert = true;
     protected static Selenium selenium;
@@ -77,37 +76,11 @@ public class BaseSeleniumTestClass {
     
     protected static final Logger logger = Logger.getLogger(BaseSeleniumTestClass.class.getName());
     public static final String TRIGGER_COMMON_TASKS = "Other Tasks";
-    protected static final Map<String, String> bundles = new HashMap<String, String>();
     
-    
-    static {
-        bundles.put("i18n", "org.glassfish.admingui.core.Strings"); // core
-        bundles.put("i18nUC", "org.glassfish.updatecenter.admingui.Strings"); // update center
-        bundles.put("i18n_corba", "org.glassfish.corba.admingui.Strings");
-        bundles.put("i18n_ejb", "org.glassfish.ejb.admingui.Strings");
-        bundles.put("i18n_ejbLite", "org.glassfish.ejb-lite.admingui.Strings");
-        bundles.put("i18n_jts", "org.glassfish.jts.admingui.Strings"); // JTS
-        bundles.put("i18n_web", "org.glassfish.web.admingui.Strings"); // WEB
-        bundles.put("common", "org.glassfish.common.admingui.Strings");
-        bundles.put("i18nc", "org.glassfish.common.admingui.Strings"); // common -- apparently we use both in the app :|
-        bundles.put("i18nce", "org.glassfish.admingui.community-theme.Strings");
-        bundles.put("i18ncs", "org.glassfish.cluster.admingui.Strings"); // cluster
-        bundles.put("i18njca", "org.glassfish.jca.admingui.Strings"); // JCA
-        bundles.put("i18njdbc", "org.glassfish.jdbc.admingui.Strings"); // JDBC
-        bundles.put("i18njmail", "org.glassfish.full.admingui.Strings");
-        bundles.put("i18njms", "org.glassfish.jms.admingui.Strings"); // JMS
-        bundles.put("theme", "org.glassfish.admingui.community-theme.Strings");
-
-            // TODO: These conflict with core and should probably be changed in the pages
-            //put("i18n", "org.glassfish.common.admingui.Strings");
-            //put("i18n", "org.glassfish.web.admingui.Strings");
-            //put("i18nc", "org.glassfish.web.admingui.Strings");
-    }
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "http://localhost:4848/";
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @After
@@ -289,5 +262,65 @@ public class BaseSeleniumTestClass {
         while(!driver.findElement(By.className(className)).isDisplayed()){
             sleep(500);
         }
+    }
+    
+    public void deleteRow(String delBtn,String tableId, String Name) {
+        String clickId = getTableRowByValue(tableId, Name, "col1")+"col0:select";
+        clickByIdAction(clickId);
+        clickByIdAction(delBtn);
+        closeAlertAndGetItsText();
+        waitForAlertProcess("modalBody");
+    }
+    
+    public void waitforBtnDisable(String btnId){
+        while (driver.findElement(By.id(btnId)).isEnabled()){
+            sleep(500);
+        }
+    }
+    
+    public void waitForButtonEnabled(String btnId){
+        while (!driver.findElement(By.id(btnId)).isEnabled()){
+            sleep(500);
+        }
+    }
+    
+    public boolean isTextPresent(String prefix, String name, String tableId){
+        if (getTableRowCount(tableId) == 0) {
+            return false;
+        }
+        try {
+            if (!getText(prefix + "col1:link").equals(name)){
+                return false;
+            } else
+                return true;
+        } catch (NoSuchElementException e){
+            return false;
+        }
+    }
+    
+    protected int getTableRowCountByValue(String tableId, String value, String valueColId) {
+        return getTableRowCountByValue(tableId, value, valueColId, true);
+    }
+    
+    protected int getTableRowCountByValue(String tableId, String value, String valueColId, Boolean isLabel) {
+        int tableCount = getTableRowCount(tableId);
+        int selectedCount = 0;
+        try {
+            for (int i = 0; i < tableCount; i++) {
+                String text = "";
+                if (isLabel) {
+                    text = getText(tableId + ":rowGroup1:" + i + ":" + valueColId);
+                } else {
+                    text = getValue(tableId + ":rowGroup1:" + i + ":" + valueColId, "value");
+                }
+                if (text.equals(value)) {
+                    selectedCount++;
+                }
+            }
+        } catch (Exception e) {
+            Assert.fail("The specified row was not found: " + value);
+            return 0;
+        }
+        return selectedCount;
     }
 }
