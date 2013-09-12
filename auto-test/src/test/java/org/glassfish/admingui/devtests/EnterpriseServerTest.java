@@ -79,7 +79,6 @@ public class EnterpriseServerTest extends BaseSeleniumTestClass {
     public void testSystemProperties() {
         final String property = generateRandomString();
         final String value = property + "value";
-        final String description = property + "description";
 
         gotoDasPage();
         clickAndWait("propertyForm:serverInstTabs:serverInstProps");

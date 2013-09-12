@@ -46,9 +46,7 @@ import static org.junit.Assert.assertTrue;
 
 
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 
 /**
@@ -509,17 +507,5 @@ public class ClusterTest extends BaseSeleniumTestClass {
         assertEquals("123.234.456.88", getValue("propertyForm:propertySheet:propertSectionTextField:gmsMulticastAddress:gmsMulticastAddress","value"));
         assertEquals("${ABCDE}", getValue("propertyForm:propertySheet:propertSectionTextField:GmsBindInterfaceAddress:GmsBindInterfaceAddress","value"));
         assertEquals(false, driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:gmsEnabledProp:gmscb")).isSelected());
-    }
-    
-    /**
-     * Common util methods
-     */
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 }

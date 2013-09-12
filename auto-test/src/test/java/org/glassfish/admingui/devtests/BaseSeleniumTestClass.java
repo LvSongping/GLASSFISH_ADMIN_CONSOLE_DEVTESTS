@@ -44,6 +44,7 @@ import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -322,5 +323,10 @@ public class BaseSeleniumTestClass {
             return 0;
         }
         return selectedCount;
+    }
+    
+    protected int generateRandomNumber(int max) {
+        Random r = new Random();
+        return Math.abs(r.nextInt(max - 1)) + 1;
     }
 }
