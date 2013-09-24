@@ -71,8 +71,10 @@ public class AvailabilityServiceTest extends BaseSeleniumTestClass {
         assertTableRowCount("propertyForm:basicTable", count);
     }
 
+//    //the test need to be finished after the issue of GLASSFISH-20810 had to be resolved! 
 //    @Test
 //    public void testWebContainerAvailability() {
+//        gotoDasPage();
 //        clickAndWait(ID_DEFAULT_CONFIG_TURNER);
 //        clickAndWait(ID_AVAILABILITY_SERVICE_TREE_NODE);
 //        clickAndWait("propertyForm:availabilityTabs:webAvailabilityTab");
@@ -88,8 +90,10 @@ public class AvailabilityServiceTest extends BaseSeleniumTestClass {
 //        assertTableRowCount("propertyForm:basicTable", count);
 //    }
 //
+//  //the test need to be finished after the issue of GLASSFISH-20810 had to be resolved!
 //    @Test
 //    public void testEjbContainerAvailability() {
+//        gotoDasPage();
 //        clickAndWait(ID_DEFAULT_CONFIG_TURNER);
 //        clickAndWait(ID_AVAILABILITY_SERVICE_TREE_NODE);
 //        clickAndWait("propertyForm:availabilityTabs:ejbAvailabilityTab");
@@ -165,7 +169,4 @@ public class AvailabilityServiceTest extends BaseSeleniumTestClass {
         }
     }
     
-    private void gotoDasPage() {
-        driver.get(baseUrl + "/common/index.jsf");
-    }
 }

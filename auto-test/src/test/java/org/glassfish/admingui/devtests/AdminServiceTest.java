@@ -102,7 +102,4 @@ public class AdminServiceTest extends BaseSeleniumTestClass {
         
     }
     
-    private void gotoDasPage() {
-        driver.get(baseUrl + "/common/index.jsf");
-    }
 }

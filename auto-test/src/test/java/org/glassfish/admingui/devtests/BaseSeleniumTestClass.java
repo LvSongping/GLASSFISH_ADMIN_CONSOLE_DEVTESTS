@@ -329,4 +329,9 @@ public class BaseSeleniumTestClass {
         Random r = new Random();
         return Math.abs(r.nextInt(max - 1)) + 1;
     }
+    
+    public void gotoDasPage() {
+        driver.get(baseUrl + "/common/index.jsf");
+    }
+    
 }
