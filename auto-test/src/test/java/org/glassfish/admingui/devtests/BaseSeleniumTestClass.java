@@ -104,6 +104,11 @@ public class BaseSeleniumTestClass {
         return "a" + new BigInteger(130, random).toString(16);
     }
     
+    protected int generateRandomNumber() {
+        Random r = new Random();
+        return Math.abs(r.nextInt()) + 1;
+    }
+    
     protected String getTableRowByValue(String tableId, String value, String valueColId) {
         try {
             int row = 0;

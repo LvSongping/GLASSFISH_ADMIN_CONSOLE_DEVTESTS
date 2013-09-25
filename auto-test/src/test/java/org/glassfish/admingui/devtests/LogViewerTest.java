@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2010-2011 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -40,31 +40,47 @@
 
 package org.glassfish.admingui.devtests;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+public class LogViewerTest extends BaseSeleniumTestClass {
 
-public class JVMReportTest extends BaseSeleniumTestClass {
-
-
+    // basic sanity test for log viewer
     @Test
-    public void testJVMLink() {
+    public void testLogViewer() {
         gotoDasPage();
         clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        assertEquals("JVM Report",getText("propertyForm:propertySheet:serverGeneralPropSheet:jvmProp:jvmlink"));
         String winHandleBefore = driver.getWindowHandle();
-        
-        clickAndWait("propertyForm:propertySheet:serverGeneralPropSheet:jvmProp:jvmlink");
+        clickByIdAction("propertyForm:propertyContentPage:logViewer");
         for(String winHandle : driver.getWindowHandles()){
             driver.switchTo().window(winHandle);
         }
-        isElementPresent("propertyForm:propertyContentPage:propertySheet:viewPropertySection:ViewProp:View");
-        assertTrue(getText("propertyForm:propertyContentPage:propertySheet:reportPropertySection:ReportProp:Report").contains("Operating System Information"));
+        
+        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Log Viewer"));
         driver.close();
         
         driver.switchTo().window(winHandleBefore);
+    }
+
+    // basic sanity test for raw log viewer
+    @Test
+    public void testRawLogViewer() {
+        gotoDasPage();
+        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
+        String winHandleBefore = driver.getWindowHandle();
+        clickByIdAction("propertyForm:propertyContentPage:logViewerRaw");
+        for(String winHandle : driver.getWindowHandles()){
+            driver.switchTo().window(winHandle);
+        }
+        
+        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Raw Log Viewer"));
+        driver.close();
+        
+        driver.switchTo().window(winHandleBefore);
+
     }
 }
 

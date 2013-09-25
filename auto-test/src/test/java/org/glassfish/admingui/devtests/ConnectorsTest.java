@@ -40,13 +40,11 @@
 
 package org.glassfish.admingui.devtests;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ConnectorsTest extends BaseSeleniumTestClass {
 

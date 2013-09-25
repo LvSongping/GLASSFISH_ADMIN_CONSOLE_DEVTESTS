@@ -44,7 +44,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class HttpServiceTest extends BaseSeleniumTestClass {
     
