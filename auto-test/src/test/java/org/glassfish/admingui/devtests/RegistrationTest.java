@@ -40,51 +40,19 @@
 
 package org.glassfish.admingui.devtests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.openqa.selenium.By;
-
 /**
  * 
  * @author Jeremy Lv
  *
  */
-public class LogViewerTest extends BaseSeleniumTestClass {
+public class RegistrationTest extends BaseSeleniumTestClass {
 
-    // basic sanity test for log viewer
-    @Test
-    public void testLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewer");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
-    }
-
-    // basic sanity test for raw log viewer
-    @Test
-    public void testRawLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewerRaw");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Raw Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
-
-    }
+//     //this test connects to an external site on the internet. It will fail if the site is down or there is no internet.
+//    //need to be finished in the future
+//    @Test
+//    public void testRegistration() {
+//        driver.get(baseUrl +  "/common/registration.jsf");
+//    }
 }
 

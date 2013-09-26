@@ -45,7 +45,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
-
+/**
+ * 
+ * @author Jeremy Lv
+ *
+ */
 public class EjbContainerTest extends BaseSeleniumTestClass {
 
     @Test

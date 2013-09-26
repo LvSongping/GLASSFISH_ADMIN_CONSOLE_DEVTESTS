@@ -40,51 +40,41 @@
 
 package org.glassfish.admingui.devtests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.openqa.selenium.By;
 
+import static org.junit.Assert.assertEquals;
 /**
  * 
  * @author Jeremy Lv
  *
  */
-public class LogViewerTest extends BaseSeleniumTestClass {
+public class WorkSecurityMapTest extends BaseSeleniumTestClass {
 
-    // basic sanity test for log viewer
+
     @Test
-    public void testLogViewer() {
+    public void testWorkSecurityMaps() throws Exception {
         gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewer");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
-    }
+        final String testWorkSecurityMap = generateRandomString();
+        final String testGroupMapKey = generateRandomString();
+        final String testGroupMapValue = generateRandomString();
 
-    // basic sanity test for raw log viewer
-    @Test
-    public void testRawLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewerRaw");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Raw Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
+        clickAndWait("treeForm:tree:resources:Connectors:workSecurityMaps:workSecurityMaps_link");
 
+        clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
+
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:mapNameNew:mapName", testWorkSecurityMap);
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:groupProp:eisgrouptext", testGroupMapKey + "=" + testGroupMapValue);
+        clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
+
+        String prefix = getTableRowByValue("propertyForm:resourcesTable", testWorkSecurityMap, "col1");
+        assertEquals(testWorkSecurityMap, getText(prefix + "col1:link"));
+
+        String clickId = prefix + "col1:link";
+        clickByIdAction(clickId);
+        
+        assertEquals(testGroupMapKey + "=" + testGroupMapValue, getValue("propertyForm:propertySheet:propertSectionTextField:groupProp:eisgrouptext", "value"));
+        clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
+
+        deleteRow("propertyForm:resourcesTable:topActionsGroup1:button1", "propertyForm:resourcesTable", testWorkSecurityMap);
     }
 }
-

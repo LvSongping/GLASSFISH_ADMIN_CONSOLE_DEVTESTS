@@ -40,51 +40,46 @@
 
 package org.glassfish.admingui.devtests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
+import static org.junit.Assert.*;
 /**
  * 
  * @author Jeremy Lv
  *
  */
-public class LogViewerTest extends BaseSeleniumTestClass {
-
-    // basic sanity test for log viewer
+public class ResourceAdapterConfigsTest extends BaseSeleniumTestClass {
     @Test
-    public void testLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewer");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
-    }
+    public void testResourceAdapterConfigs() throws Exception {
+            gotoDasPage();
+            clickAndWait("treeForm:tree:resources:resourceAdapterConfigs:resourceAdapterConfigs_link");
+            int emptyCount = getTableRowCountByValue("propertyForm:poolTable", "jmsra", "col1:link", true);
+            if (emptyCount != 0){
+                gotoDasPage();
+                clickAndWait("treeForm:tree:resources:resourceAdapterConfigs:resourceAdapterConfigs_link");
+                deleteRow("propertyForm:poolTable:topActionsGroup1:button1", "propertyForm:poolTable", "jmsra");
+            }
 
-    // basic sanity test for raw log viewer
-    @Test
-    public void testRawLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewerRaw");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Raw Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
+            // Create new RA config
+            clickAndWait("propertyForm:poolTable:topActionsGroup1:newButton");
+            Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:threadPoolsIdProp:threadpoolsid")));
+            select.selectByVisibleText("thread-pool-1");
+            clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
 
+            // Verify config was saved and update values
+            String prefix = getTableRowByValue("propertyForm:poolTable", "jmsra", "col1");
+            assertEquals("jmsra", getText(prefix + "col1:link"));
+            String clickId = prefix + "col1:link";
+            clickByIdAction(clickId);
+            Select select1 = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:threadPoolsIdProp:threadpoolsid")));
+            assertTrue(select1.getFirstSelectedOption().getAttribute("value").equals("thread-pool-1"));
+            clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
+            
+            // Remove config
+            gotoDasPage();
+            clickAndWait("treeForm:tree:resources:resourceAdapterConfigs:resourceAdapterConfigs_link");
+            deleteRow("propertyForm:poolTable:topActionsGroup1:button1", "propertyForm:poolTable", "jmsra");
     }
 }
-

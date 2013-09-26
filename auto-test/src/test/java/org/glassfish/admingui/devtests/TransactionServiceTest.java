@@ -41,34 +41,51 @@
 package org.glassfish.admingui.devtests;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * 
  * @author Jeremy Lv
  *
  */
-public class GMSTest extends BaseSeleniumTestClass {
+public class TransactionServiceTest extends BaseSeleniumTestClass {
 
     @Test
-    public void testConfig() {
+    public void testTransactionService() {
         gotoDasPage();
-        final String protocolMaxTrial = Integer.toString(generateRandomNumber(100));
-        clickAndWait("treeForm:tree:configurations:default-config:default-config_turner:default-config_turner_image");
-        clickAndWait("treeForm:tree:configurations:default-config:gms:gms_link");
-        setFieldValue("propertyForm:propertySheet:propertSectionTextField:fdMax:fdMax", protocolMaxTrial);
-        
+        final String timeout = Integer.toString(generateRandomNumber(60));
+        final String retry = Integer.toString(generateRandomNumber(600));
+        final String keypoint = Integer.toString(generateRandomNumber(65535));
+
+        clickAndWait("treeForm:tree:configurations:server-config:transactionService:transactionService_link");
+        if (!driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:onRestartProp:enabled")).isSelected()){
+            clickByIdAction("propertyForm:propertySheet:propertSectionTextField:onRestartProp:enabled");
+        }
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:timeoutProp:Timeout", timeout);
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:retryProp:Retry", retry);
+        Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:heuristicProp:HeuristicDecision")));
+        select.selectByVisibleText("Commit");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:keyPointProp:Keypoint", keypoint);
         int count = addTableRow("propertyForm:basicTable", "propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+
         sleep(500);
-        setFieldValue("propertyForm:basicTable:rowGroup1:0:col2:col1St", "a");
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col2:col1St", "property"+generateRandomString());
         sleep(500);
-        setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", "b");
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", "value");
         sleep(500);
-        setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "c");
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
         isClassPresent("label_sun4");
-        
-        assertEquals(protocolMaxTrial, getValue("propertyForm:propertySheet:propertSectionTextField:fdMax:fdMax", "value"));
+
+        assertTrue(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:onRestartProp:enabled")).isSelected());
+        assertEquals(timeout, getValue("propertyForm:propertySheet:propertSectionTextField:timeoutProp:Timeout", "value"));
+        assertEquals(retry, getValue("propertyForm:propertySheet:propertSectionTextField:retryProp:Retry", "value"));
+        assertEquals("commit", getValue("propertyForm:propertySheet:propertSectionTextField:heuristicProp:HeuristicDecision", "value"));
+        assertEquals(keypoint, getValue("propertyForm:propertySheet:propertSectionTextField:keyPointProp:Keypoint", "value"));
         assertTableRowCount("propertyForm:basicTable", count);
     }
 }

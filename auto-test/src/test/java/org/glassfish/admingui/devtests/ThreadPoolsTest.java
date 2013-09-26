@@ -40,51 +40,43 @@
 
 package org.glassfish.admingui.devtests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.openqa.selenium.By;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv
  *
  */
-public class LogViewerTest extends BaseSeleniumTestClass {
+public class ThreadPoolsTest extends BaseSeleniumTestClass {
 
-    // basic sanity test for log viewer
     @Test
-    public void testLogViewer() {
+    public void testAddThreadPool() {
         gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewer");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
-    }
+        final String threadPoolName = "testThreadPool"+generateRandomString();
 
-    // basic sanity test for raw log viewer
-    @Test
-    public void testRawLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewerRaw");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
+        clickAndWait("treeForm:tree:configurations:server-config:threadPools:threadPools_link");
+        clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:nameProp:nameText", threadPoolName);
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:max:max", "8192");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:maxThread:maxThread", "10");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:minThread:minThread", "4");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:timeout:timeout", "1800");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
         
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Raw Log Viewer"));
-        driver.close();
+        String prefix = getTableRowByValue("propertyForm:configs", threadPoolName, "col1");
+        assertEquals(threadPoolName, getText(prefix + "col1:link"));
         
-        driver.switchTo().window(winHandleBefore);
+        String clickId = prefix + "col1:link";
+        clickAndWait(clickId);
+        
+        assertEquals("8192", getValue("propertyForm:propertySheet:propertSectionTextField:max:max", "value"));
+        assertEquals("10", getValue("propertyForm:propertySheet:propertSectionTextField:maxThread:maxThread", "value"));
+        assertEquals("4", getValue("propertyForm:propertySheet:propertSectionTextField:minThread:minThread", "value"));
+        assertEquals("1800", getValue("propertyForm:propertySheet:propertSectionTextField:timeout:timeout", "value"));
+        clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
 
+        deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", threadPoolName);
     }
 }
-

@@ -40,51 +40,48 @@
 
 package org.glassfish.admingui.devtests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
+import static org.junit.Assert.assertEquals;
 /**
  * 
  * @author Jeremy Lv
  *
  */
-public class LogViewerTest extends BaseSeleniumTestClass {
+public class VirtualServerTest extends BaseSeleniumTestClass {
 
-    // basic sanity test for log viewer
     @Test
-    public void testLogViewer() {
+    public void testAddVirtualServer() {
         gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewer");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
-    }
+        final String serverName = "vs" + generateRandomString();
 
-    // basic sanity test for raw log viewer
-    @Test
-    public void testRawLogViewer() {
-        gotoDasPage();
-        clickAndWait("treeForm:tree:applicationServer:applicationServer_link");
-        String winHandleBefore = driver.getWindowHandle();
-        clickByIdAction("propertyForm:propertyContentPage:logViewerRaw");
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-        }
-        
-        assertTrue(driver.findElement(By.className("TtlTxt_sun4")).getText().equals("Raw Log Viewer"));
-        driver.close();
-        
-        driver.switchTo().window(winHandleBefore);
+        clickAndWait("treeForm:tree:configurations:server-config:virtualServers:virtualServers_link");
+        clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:IdTextProp:IdText", serverName);
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:hostsProp:Hosts", "localhost");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:logFileProp:LogFile", "logfile.txt");
+        setFieldValue("propertyForm:propertySheet:propertSectionTextField:docroot:docroot", "/tmp");
+        Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:nwProps:nw")));
+        select.selectByVisibleText("http-listener-1");
+        int count = addTableRow("propertyForm:basicTable", "propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
 
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col2:col1St", "property");
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", "value");
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
+
+        clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
+
+        String prefix = getTableRowByValue("propertyForm:configs", serverName, "col1");
+        assertEquals(serverName, getText(prefix + "col1:link"));
+        String clickId = prefix + "col1:link";
+        clickByIdAction(clickId);
+
+        assertTableRowCount("propertyForm:basicTable", count);
+
+        clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
+
+        deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", serverName);
     }
 }
-

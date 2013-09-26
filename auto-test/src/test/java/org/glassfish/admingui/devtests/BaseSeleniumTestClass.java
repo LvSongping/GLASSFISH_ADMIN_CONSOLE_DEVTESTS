@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013-2013 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -115,6 +115,23 @@ public class BaseSeleniumTestClass {
             while (true) { // iterate over any rows
                 // Assume one row group for now and hope it doesn't bite us
                 String text = getText(tableId + ":rowGroup1:" + row + ":" + valueColId);
+                if (text.equals(value)) {
+                    return tableId + ":rowGroup1:" + row + ":";
+                }
+                row++;
+            }
+        } catch (Exception e) {
+            Assert.fail("The specified row was not found: " + value);
+            return "";
+        }
+    }
+    
+    protected String getTableRowByVal(String tableId, String value, String valueColId) {
+        try {
+            int row = 0;
+            while (true) { // iterate over any rows
+                // Assume one row group for now and hope it doesn't bite us
+                String text = getValue(tableId + ":rowGroup1:" + row + ":" + valueColId, "value");
                 if (text.equals(value)) {
                     return tableId + ":rowGroup1:" + row + ":";
                 }
@@ -337,6 +354,12 @@ public class BaseSeleniumTestClass {
     
     public void gotoDasPage() {
         driver.get(baseUrl + "/common/index.jsf");
+    }
+    
+    public void waitForElementPresent(String className, String value) {
+        while(!driver.findElement(By.className(className)).getText().equals(value)){
+            sleep(500);
+        }
     }
     
 }

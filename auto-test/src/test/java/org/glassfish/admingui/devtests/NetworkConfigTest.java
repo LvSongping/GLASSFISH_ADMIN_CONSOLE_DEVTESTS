@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2010-2011 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -47,45 +47,45 @@ import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+/**
+ * 
+ * @author Jeremy Lv
+ *
+ */
 public class NetworkConfigTest extends BaseSeleniumTestClass {
     ArrayList<String> list = new ArrayList(); {list.add("server-config"); list.add("new-config");}
 
     @Test
     public void testAddingNetworkListener() {
         final String listenerName = "listener"+generateRandomString();
-        try{
-            createConfig("new-config");
-            for (String configName : list) {
-                gotoDasPage();
-                clickAndWait("treeForm:tree:configurations:" + configName + ":networkConfig:networkListeners:networkListeners_link");
-                clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
-                setFieldValue("propertyForm:propertySheet:propertSectionTextField:nameNew:name", listenerName);
-                clickByIdAction("propertyForm:propertySheet:propertSectionTextField:prop1:existingRdBtn");
-                Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:prop1:protocoldw")));
-                select.selectByVisibleText("http-listener-1");
-                setFieldValue("propertyForm:propertySheet:propertSectionTextField:port:port", "1234");
-                clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
-                
-                String prefix = getTableRowByValue("propertyForm:configs", listenerName, "col1");
-                assertEquals(listenerName, getText(prefix + "col1:link"));
-                
-                String clickId = prefix + "col1:link";
-                clickByIdAction(clickId);
+        createConfig("new-config");
+        for (String configName : list) {
+            gotoDasPage();
+            clickAndWait("treeForm:tree:configurations:" + configName + ":networkConfig:networkListeners:networkListeners_link");
+            clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:nameNew:name", listenerName);
+            clickByIdAction("propertyForm:propertySheet:propertSectionTextField:prop1:existingRdBtn");
+            Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:prop1:protocoldw")));
+            select.selectByVisibleText("http-listener-1");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:port:port", "1234");
+            clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
+            
+            String prefix = getTableRowByValue("propertyForm:configs", listenerName, "col1");
+            assertEquals(listenerName, getText(prefix + "col1:link"));
+            
+            String clickId = prefix + "col1:link";
+            clickByIdAction(clickId);
 
-                assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:name:name").equals(listenerName));
-                assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:protocol:protocol").equals("http-listener-1"));
+            assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:name:name").equals(listenerName));
+            assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:protocol:protocol").equals("http-listener-1"));
 
-                assertEquals("1234", getValue("propertyForm:propertySheet:propertSectionTextField:port:port", "value"));
-                clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
+            assertEquals("1234", getValue("propertyForm:propertySheet:propertSectionTextField:port:port", "value"));
+            clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
 
-                deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", listenerName);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            deleteConfig("new-config");
+            deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", listenerName);
         }
+        deleteConfig("new-config");
+
     }
 
     private void deleteConfig(String configName) {
@@ -97,50 +97,48 @@ public class NetworkConfigTest extends BaseSeleniumTestClass {
     public void createConfig(String configName) {
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:configurations_link");
-        clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
-        setFieldValue("propertyForm:propertySheet:propertSectionTextField:NameProp:Name", configName);
-        clickAndWait("propertyForm:propertyContentPage:topButtons:okButton");
-        
-        String prefix = getTableRowByValue("propertyForm:configs", configName, "col1");
-        assertEquals(configName, getText(prefix + "col1:link"));
+        int emptyCount = getTableRowCountByValue("propertyForm:configs", "new-config", "col1:link", true);
+        if (emptyCount == 0) {
+            clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:NameProp:Name", configName);
+            clickAndWait("propertyForm:propertyContentPage:topButtons:okButton");
+            
+            String prefix = getTableRowByValue("propertyForm:configs", configName, "col1");
+            assertEquals(configName, getText(prefix + "col1:link"));
+        }
     }
 
     @Test
     public void testAddingTransport() {
         final String transportName = "transport"+generateRandomString();
-        try{
-            createConfig("new-config");
-            for (String configName : list) {
-                gotoDasPage();
-                clickAndWait("treeForm:tree:configurations:" + configName + ":networkConfig:transports:transports_link");
-                clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
-                setFieldValue("propertyForm:propertySheet:propertSectionTextField:IdTextProp:IdText", transportName);
-                Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:ByteBufferType:ByteBufferType")));
-                select.selectByVisibleText("DIRECT");
-                setFieldValue("propertyForm:propertySheet:propertSectionTextField:BufferSizeBytes:BufferSizeBytes", "1000");
-                setFieldValue("propertyForm:propertySheet:propertSectionTextField:AcceptorThreads:AcceptorThreads", "-1");
-                clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
-                
-                String prefix = getTableRowByValue("propertyForm:configs", transportName, "col1");
-                assertEquals(transportName, getText(prefix + "col1:link"));
+        createConfig("new-config");
+        for (String configName : list) {
+            gotoDasPage();
+            clickAndWait("treeForm:tree:configurations:" + configName + ":networkConfig:transports:transports_link");
+            clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:IdTextProp:IdText", transportName);
+            Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:ByteBufferType:ByteBufferType")));
+            select.selectByVisibleText("DIRECT");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:BufferSizeBytes:BufferSizeBytes", "1000");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:AcceptorThreads:AcceptorThreads", "-1");
+            clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
+            
+            String prefix = getTableRowByValue("propertyForm:configs", transportName, "col1");
+            assertEquals(transportName, getText(prefix + "col1:link"));
 
-                String clickId = prefix + "col1:link";
-                clickByIdAction(clickId);
-                
-                assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:name:name").equals(transportName));
-                Select select1 = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:ByteBufferType:ByteBufferType")));
-                assertTrue(select1.getFirstSelectedOption().getAttribute("value").equals("DIRECT"));
-                assertEquals("1000", getValue("propertyForm:propertySheet:propertSectionTextField:BufferSizeBytes:BufferSizeBytes", "value"));
-                clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
+            String clickId = prefix + "col1:link";
+            clickByIdAction(clickId);
+            
+            assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:name:name").equals(transportName));
+            Select select1 = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:ByteBufferType:ByteBufferType")));
+            assertTrue(select1.getFirstSelectedOption().getAttribute("value").equals("DIRECT"));
+            assertEquals("1000", getValue("propertyForm:propertySheet:propertSectionTextField:BufferSizeBytes:BufferSizeBytes", "value"));
+            clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
 
-                deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", transportName);
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        } finally {
-            deleteConfig("new-config");
+            deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", transportName);
         }
-        
+        deleteConfig("new-config");
+
     }
 
     @Test
@@ -157,68 +155,60 @@ public class NetworkConfigTest extends BaseSeleniumTestClass {
         final String headerBLength = Integer.toString(generateRandomNumber(16384));
         final String maxPostSize = Integer.toString(generateRandomNumber(2097152));
         final String compressableMime = Integer.toString(generateRandomNumber(4096));
-        try{
-            createConfig("new-config");
-            for (String configName : list) {
-                gotoDasPage();
-                clickAndWait("treeForm:tree:configurations:" + configName +":networkConfig:protocols:protocols_link");
-                clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
-                setFieldValue("propertyForm:propertySheet:propertSectionTextField:nameNew:name", protocol);
-                setFieldValue("propertyForm:propertySheet:fileTextField:maxAge:maxAge", maxAge);
-                setFieldValue("propertyForm:propertySheet:fileTextField:maxCacheSizeBytes:maxCacheSizeBytes", maxCacheSizeBytes);
-                setFieldValue("propertyForm:propertySheet:fileTextField:maxFile:maxFile", maxFile);
-                setFieldValue("propertyForm:propertySheet:httpTextField:maxC:maxC", maxC);
-                setFieldValue("propertyForm:propertySheet:httpTextField:TimeoutSeconds:TimeoutSeconds", timeoutSeconds);
-                setFieldValue("propertyForm:propertySheet:httpTextField:connectionUploadTimeout:connectionUploadTimeout", connectionUploadTimeout);
-                setFieldValue("propertyForm:propertySheet:httpTextField:RequestTimeoutSeconds:RequestTimeoutSeconds", requestTimeoutSeconds);
-                setFieldValue("propertyForm:propertySheet:httpTextField:sendBsize:sendBsize", sendBsize);
-                setFieldValue("propertyForm:propertySheet:httpTextField:headerBLength:headerBLength", headerBLength);
-                setFieldValue("propertyForm:propertySheet:httpTextField:MaxPostSize:headerBLength", maxPostSize);
-                Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:httpTextField:Compression:Compression")));
-                select.selectByVisibleText("on");
-                setFieldValue("propertyForm:propertySheet:httpTextField:compressableMime:compressableMime", compressableMime);
-                if (!driver.findElement(By.id("propertyForm:propertySheet:httpTextField:Comet:cometEnabled")).isSelected()){
-                    clickByIdAction("propertyForm:propertySheet:httpTextField:Comet:cometEnabled");
-                }
-
-                clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
-                
-                String prefix = getTableRowByValue("propertyForm:configs", protocol, "col1");
-                assertEquals(protocol, getText(prefix + "col1:link"));
-
-                String clickId = prefix + "col1:link";
-                clickByIdAction(clickId);
-
-                assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:name:name").equals(protocol));
-
-                clickAndWait("propertyForm:protocolTabs:httpTab");
-                assertEquals(maxC, getValue("propertyForm:propertySheet:httpTextField:maxC:maxC", "value"));
-                assertEquals(timeoutSeconds, getValue("propertyForm:propertySheet:httpTextField:TimeoutSeconds:TimeoutSeconds", "value"));
-                assertEquals(requestTimeoutSeconds, getValue("propertyForm:propertySheet:httpTextField:RequestTimeoutSeconds:RequestTimeoutSeconds", "value"));
-                assertEquals(connectionUploadTimeout, getValue("propertyForm:propertySheet:httpTextField:connectionUploadTimeout:connectionUploadTimeout", "value"));
-                assertEquals(sendBsize, getValue("propertyForm:propertySheet:httpTextField:sendBsize:sendBsize", "value"));
-                assertEquals(headerBLength, getValue("propertyForm:propertySheet:httpTextField:headerBLength:headerBLength", "value"));
-                assertEquals(maxPostSize, getValue("propertyForm:propertySheet:httpTextField:MaxPostSize:headerBLength", "value"));
-                assertEquals(compressableMime, getValue("propertyForm:propertySheet:httpTextField:compressableMime:compressableMime", "value"));
-                assertEquals("true", getValue("propertyForm:propertySheet:httpTextField:Comet:cometEnabled", "value"));
-
-                clickAndWait("propertyForm:protocolTabs:fileCacheTab");
-                assertEquals(maxAge, getValue("propertyForm:propertySheet:fileTextField:maxAge:maxAge", "value"));
-                assertEquals(maxCacheSizeBytes, getValue("propertyForm:propertySheet:fileTextField:maxCacheSizeBytes:maxCacheSizeBytes", "value"));
-                assertEquals(maxFile, getValue("propertyForm:propertySheet:fileTextField:maxFile:maxFile", "value"));
-
-                clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
-
-
-                deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", protocol);
+        createConfig("new-config");
+        for (String configName : list) {
+            gotoDasPage();
+            clickAndWait("treeForm:tree:configurations:" + configName +":networkConfig:protocols:protocols_link");
+            clickAndWait("propertyForm:configs:topActionsGroup1:newButton");
+            setFieldValue("propertyForm:propertySheet:propertSectionTextField:nameNew:name", protocol);
+            setFieldValue("propertyForm:propertySheet:fileTextField:maxAge:maxAge", maxAge);
+            setFieldValue("propertyForm:propertySheet:fileTextField:maxCacheSizeBytes:maxCacheSizeBytes", maxCacheSizeBytes);
+            setFieldValue("propertyForm:propertySheet:fileTextField:maxFile:maxFile", maxFile);
+            setFieldValue("propertyForm:propertySheet:httpTextField:maxC:maxC", maxC);
+            setFieldValue("propertyForm:propertySheet:httpTextField:TimeoutSeconds:TimeoutSeconds", timeoutSeconds);
+            setFieldValue("propertyForm:propertySheet:httpTextField:connectionUploadTimeout:connectionUploadTimeout", connectionUploadTimeout);
+            setFieldValue("propertyForm:propertySheet:httpTextField:RequestTimeoutSeconds:RequestTimeoutSeconds", requestTimeoutSeconds);
+            setFieldValue("propertyForm:propertySheet:httpTextField:sendBsize:sendBsize", sendBsize);
+            setFieldValue("propertyForm:propertySheet:httpTextField:headerBLength:headerBLength", headerBLength);
+            setFieldValue("propertyForm:propertySheet:httpTextField:MaxPostSize:headerBLength", maxPostSize);
+            Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:httpTextField:Compression:Compression")));
+            select.selectByVisibleText("on");
+            setFieldValue("propertyForm:propertySheet:httpTextField:compressableMime:compressableMime", compressableMime);
+            if (!driver.findElement(By.id("propertyForm:propertySheet:httpTextField:Comet:cometEnabled")).isSelected()){
+                clickByIdAction("propertyForm:propertySheet:httpTextField:Comet:cometEnabled");
             }
-        } catch(Exception e) {
-            e.printStackTrace();
-        } finally {
-            deleteConfig("new-config");
+
+            clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
+            
+            String prefix = getTableRowByValue("propertyForm:configs", protocol, "col1");
+            assertEquals(protocol, getText(prefix + "col1:link"));
+
+            String clickId = prefix + "col1:link";
+            clickByIdAction(clickId);
+
+            assertTrue(getText("propertyForm:propertySheet:propertSectionTextField:name:name").equals(protocol));
+
+            clickAndWait("propertyForm:protocolTabs:httpTab");
+            assertEquals(maxC, getValue("propertyForm:propertySheet:httpTextField:maxC:maxC", "value"));
+            assertEquals(timeoutSeconds, getValue("propertyForm:propertySheet:httpTextField:TimeoutSeconds:TimeoutSeconds", "value"));
+            assertEquals(requestTimeoutSeconds, getValue("propertyForm:propertySheet:httpTextField:RequestTimeoutSeconds:RequestTimeoutSeconds", "value"));
+            assertEquals(connectionUploadTimeout, getValue("propertyForm:propertySheet:httpTextField:connectionUploadTimeout:connectionUploadTimeout", "value"));
+            assertEquals(sendBsize, getValue("propertyForm:propertySheet:httpTextField:sendBsize:sendBsize", "value"));
+            assertEquals(headerBLength, getValue("propertyForm:propertySheet:httpTextField:headerBLength:headerBLength", "value"));
+            assertEquals(maxPostSize, getValue("propertyForm:propertySheet:httpTextField:MaxPostSize:headerBLength", "value"));
+            assertEquals(compressableMime, getValue("propertyForm:propertySheet:httpTextField:compressableMime:compressableMime", "value"));
+            assertEquals("true", getValue("propertyForm:propertySheet:httpTextField:Comet:cometEnabled", "value"));
+
+            clickAndWait("propertyForm:protocolTabs:fileCacheTab");
+            assertEquals(maxAge, getValue("propertyForm:propertySheet:fileTextField:maxAge:maxAge", "value"));
+            assertEquals(maxCacheSizeBytes, getValue("propertyForm:propertySheet:fileTextField:maxCacheSizeBytes:maxCacheSizeBytes", "value"));
+            assertEquals(maxFile, getValue("propertyForm:propertySheet:fileTextField:maxFile:maxFile", "value"));
+
+            clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
+
+
+            deleteRow("propertyForm:configs:topActionsGroup1:button1", "propertyForm:configs", protocol);
         }
-
-        
-
+        deleteConfig("new-config");
     }
 }
