@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2011 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -51,7 +51,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  *
- * @author sumasri
+ * @author jeremy lv
  */
 public class AppScopedResourcesTest extends BaseSeleniumTestClass {
     private static final String TRIGGER_APPLICATIONS = "Applications can be enterprise or web applications, or various kinds of modules.";
@@ -68,87 +68,87 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
     private static final String ELEMENT_APPLICATION_RESOURCES_TAB = "propertyForm:appGeneralTabs:resourcesTab";
     private static final String ELEMENT_APP_RESOURCES_TABLE = "propertyForm:appScopedResources";
     
-//    @Test
-//    public void testAppScopedResApp() {
-//        final String applicationName = generateRandomString();
-//        deployApp(applicationName);
-//        undeployApp(applicationName);
-//    }
+    @Test
+    public void testAppScopedResApp() {
+        final String applicationName = generateRandomString();
+        deployApp(applicationName);
+        undeployApp(applicationName);
+    }
 
-//    @Test
-//    public void testJdbcAppScopedresources() {
-//        final String applicationName = generateRandomString();
-//        try {
-//        deployApp(applicationName);
-//
-//        testJDBCPool(applicationName, "jdbcPool", "app");
-//        testJDBCPool(applicationName, "jdbcPool", "module");
-//
-//        testJDBCResource(applicationName, "jdbcRes", "app");
-//        testJDBCResource(applicationName, "jdbcRes", "module");
-//        
-//        undeployApp(applicationName);
-//        }catch(Exception e) {
-//            undeployApp(applicationName);
-//        }
-//    }
+    @Test
+    public void testJdbcAppScopedresources() {
+        final String applicationName = generateRandomString();
+        try {
+        deployApp(applicationName);
 
-//    @Test
-//    public void testConnectorAppScopedresources() {
-//        final String applicationName = generateRandomString();
-//        try{
-//        deployApp(applicationName);
-//
-//        testConnectorPool(applicationName, "connectorPool", "app");
-//        testConnectorPool(applicationName, "connectorPool", "module");
-//
-//        testConnectorResource(applicationName, "connectorRes", "app");
-//        testConnectorResource(applicationName, "connectorRes", "module");
-//
-//        testAdminObjectResource(applicationName, "jms/adminObjectRes", "app");
-//        testAdminObjectResource(applicationName, "jms/adminObjectRes", "module");
-//
-//        testWorkSecurityMap(applicationName, "workSecurityMap", "app");
-//        testWorkSecurityMap(applicationName, "workSecurityMap", "module");
-//
-//        undeployApp(applicationName);
-//        }catch(Exception e) {
-//            undeployApp(applicationName);
-//        }
-//    }
+        testJDBCPool(applicationName, "jdbcPool", "app");
+        testJDBCPool(applicationName, "jdbcPool", "module");
 
-//    @Test
-//    public void testJndiAppScopedresources() {
-//        final String applicationName = generateRandomString();
-//        try{
-//        deployApp(applicationName);
-//
-//        testCustomResource(applicationName, "customRes", "app");
-//        testCustomResource(applicationName, "customRes", "module");
-//
-//        testExternalResource(applicationName, "externalRes", "app");
-//        testExternalResource(applicationName, "externalRes", "module");
-//
-//        undeployApp(applicationName);
-//        }catch(Exception e) {
-//            undeployApp(applicationName);
-//        }
-//    }
+        testJDBCResource(applicationName, "jdbcRes", "app");
+        testJDBCResource(applicationName, "jdbcRes", "module");
+        
+        undeployApp(applicationName);
+        }catch(Exception e) {
+            undeployApp(applicationName);
+        }
+    }
 
-//    @Test
-//    public void testJavaMailAppScopedresources() {
-//        final String applicationName = generateRandomString();
-//        try{
-//        deployApp(applicationName);
-//
-//        testMailResource(applicationName, "mailRes", "app");
-//        testMailResource(applicationName, "mailRes", "module");
-//
-//        undeployApp(applicationName);
-//        }catch(Exception e) {
-//            undeployApp(applicationName);
-//        }
-//    }
+    @Test
+    public void testConnectorAppScopedresources() {
+        final String applicationName = generateRandomString();
+        try{
+        deployApp(applicationName);
+
+        testConnectorPool(applicationName, "connectorPool", "app");
+        testConnectorPool(applicationName, "connectorPool", "module");
+
+        testConnectorResource(applicationName, "connectorRes", "app");
+        testConnectorResource(applicationName, "connectorRes", "module");
+
+        testAdminObjectResource(applicationName, "jms/adminObjectRes", "app");
+        testAdminObjectResource(applicationName, "jms/adminObjectRes", "module");
+
+        testWorkSecurityMap(applicationName, "workSecurityMap", "app");
+        testWorkSecurityMap(applicationName, "workSecurityMap", "module");
+
+        undeployApp(applicationName);
+        }catch(Exception e) {
+            undeployApp(applicationName);
+        }
+    }
+
+    @Test
+    public void testJndiAppScopedresources() {
+        final String applicationName = generateRandomString();
+        try{
+        deployApp(applicationName);
+
+        testCustomResource(applicationName, "customRes", "app");
+        testCustomResource(applicationName, "customRes", "module");
+
+        testExternalResource(applicationName, "externalRes", "app");
+        testExternalResource(applicationName, "externalRes", "module");
+
+        undeployApp(applicationName);
+        }catch(Exception e) {
+            undeployApp(applicationName);
+        }
+    }
+
+    @Test
+    public void testJavaMailAppScopedresources() {
+        final String applicationName = generateRandomString();
+        try{
+        deployApp(applicationName);
+
+        testMailResource(applicationName, "mailRes", "app");
+        testMailResource(applicationName, "mailRes", "module");
+
+        undeployApp(applicationName);
+        }catch(Exception e) {
+            undeployApp(applicationName);
+        }
+    }
 
     @Test
     public void testResourceAdapterConfigAppScopedresources() {
