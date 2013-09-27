@@ -44,6 +44,8 @@ import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -360,6 +362,24 @@ public class BaseSeleniumTestClass {
         while(!driver.findElement(By.className(className)).getText().equals(value)){
             sleep(500);
         }
+    }
+    
+    protected List<String> getTableRowsByValue(String tableId, String value, String valueColId) {
+        List<String> rows = new ArrayList<String>();
+        try {
+            int row = 0;
+            while (true) { // iterate over any rows
+                // Assume one row group for now and hope it doesn't bite us
+                String text = getText(tableId + ":rowGroup1:" + row + ":" + valueColId);
+                if (text.contains(value)) {
+                    rows.add(tableId + ":rowGroup1:" + row);
+                }
+                row++;
+            }
+        } catch (Exception e) {
+        }
+
+        return rows;
     }
     
 }
