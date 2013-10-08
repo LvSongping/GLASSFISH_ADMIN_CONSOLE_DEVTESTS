@@ -41,11 +41,9 @@
 package org.glassfish.admingui.devtests;
 
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

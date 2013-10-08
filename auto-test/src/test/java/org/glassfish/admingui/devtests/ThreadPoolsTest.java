@@ -43,7 +43,6 @@ package org.glassfish.admingui.devtests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv

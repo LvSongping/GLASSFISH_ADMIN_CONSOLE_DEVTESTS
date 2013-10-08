@@ -382,4 +382,14 @@ public class BaseSeleniumTestClass {
         return rows;
     }
     
+    protected void selectTableRowByValue(String tableId, String value, String selectColId, String valueColId) {
+        List<String> rows = getTableRowsByValue(tableId, value, valueColId);
+        for (String row : rows) {
+            // It seems this must be click for the JS to fire in the browser
+            driver.findElement(By.id(row + ":" + selectColId + ":select")).click();
+            if (!driver.findElement(By.id(row + ":" + selectColId + ":select")).isSelected()){
+                driver.findElement(By.id(row + ":" + selectColId + ":select")).click();
+            }
+        }
+    }
 }

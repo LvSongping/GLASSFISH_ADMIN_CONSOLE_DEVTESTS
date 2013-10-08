@@ -44,7 +44,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -54,16 +53,12 @@ import static org.junit.Assert.assertTrue;
  * @author jeremy lv
  */
 public class AppScopedResourcesTest extends BaseSeleniumTestClass {
-    private static final String TRIGGER_APPLICATIONS = "Applications can be enterprise or web applications, or various kinds of modules.";
-    private static final String TRIGGER_EDIT_APPLICATION = "Modify an existing application or module.";
-    private static final String TRIGGER_RESOURCES_APPLICATION = "View application scoped resources for the application.";
 
     private static final String ELEMENT_EARAPP_NAME = "form:ear:psection:nameProp:appName";
     private static final String ELEMENT_UNDEPLOY_BUTTON = "propertyForm:deployTable:topActionsGroup1:button1";
     private static final String ELEMENT_DEPLOY_TABLE = "propertyForm:deployTable";
     private static final String ELEMENT_UPLOAD_BUTTON = "form:title:topButtons:uploadButton";
     private static final String ELEMENT_FILE_FIELD = "form:sheet1:section1:prop1:fileupload";
-    private static final String ELEMENT_DEPLOY_BUTTON = "propertyForm:deployTable:topActionsGroup1:deployButton";
     private static final String ELEMENT_APPLICATIONS = "treeForm:tree:applications:applications_link";
     private static final String ELEMENT_APPLICATION_RESOURCES_TAB = "propertyForm:appGeneralTabs:resourcesTab";
     private static final String ELEMENT_APP_RESOURCES_TABLE = "propertyForm:appScopedResources";
@@ -164,20 +159,20 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         }
     }
 
-//    @Test
-//    public void testMonitoringAppScopedresources() {
-//        final String applicationName = generateRandomString();
-//        try{
-//        deployApp(applicationName);
-//
-//        monitoringAppScopedResource("connectorPool", "module");
-//        monitoringAppScopedResource("jdbcPool", "module");
-//
-//        undeployApp(applicationName);
-//        }catch(Exception e) {
-//            undeployApp(applicationName);
-//        }
-//    }
+    @Test
+    public void testMonitoringAppScopedresources() {
+        final String applicationName = generateRandomString();
+        try{
+        deployApp(applicationName);
+
+        monitoringAppScopedResource("connectorPool", "module");
+        monitoringAppScopedResource("jdbcPool", "module");
+
+        undeployApp(applicationName);
+        }catch(Exception e) {
+            undeployApp(applicationName);
+        }
+    }
     
     public void deployApp(String applicationName) {
         
@@ -502,9 +497,9 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
     }
 
-//    private void monitoringAppScopedResource(String resName, String appScope) {
-//        MonitoringTest monitorTest = new MonitoringTest();
-//        resName = getResName(resName, appScope);
-//        monitorTest.appScopedResourcesMonitoring("server", "server", resName);
-//    }
+    private void monitoringAppScopedResource(String resName, String appScope) {
+        MonitoringTest monitorTest = new MonitoringTest();
+        resName = getResName(resName, appScope);
+        monitorTest.appScopedResourcesMonitoring("server", "server", resName);
+    }
 }
