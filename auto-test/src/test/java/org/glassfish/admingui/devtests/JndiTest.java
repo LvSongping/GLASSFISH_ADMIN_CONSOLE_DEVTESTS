@@ -67,7 +67,8 @@ public class JndiTest extends BaseSeleniumTestClass {
         setFieldValue("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext", resourceName);
         Select select = new Select(driver.findElement(By.id("form:propertySheet:propertSectionTextField:cp:Classname")));
         select.selectByVisibleText("java.lang.Double");
-
+        int count = addTableRow("form:basicTable", "form:basicTable:topActionsGroup1:addSharedTableButton");
+        
         sleep(500);
         setFieldValue("form:basicTable:rowGroup1:0:col2:col1St", "property"+generateRandomString());
         sleep(500);
@@ -78,6 +79,11 @@ public class JndiTest extends BaseSeleniumTestClass {
 
         String prefix = getTableRowByValue("propertyForm:resourcesTable", resourceName, "col1");
         assertEquals(resourceName, getText(prefix + "col1:link"));
+        
+        String clickId = prefix + "col1:link";
+        clickByIdAction(clickId);
+        assertTableRowCount("form1:basicTable", count);
+        clickAndWait("form1:propertyContentPage:topButtons:cancelButton");
 
         //test disable button
         String selectId = prefix + "col0:select";

@@ -92,12 +92,23 @@ public class EnterpriseServerTest extends BaseSeleniumTestClass {
         setFieldValue("propertyForm:sysPropsTable:rowGroup1:0:col2:col1St", property);
         sleep(500);
         setFieldValue("propertyForm:sysPropsTable:rowGroup1:0:overrideValCol:overrideVal", value);
-
         clickAndWait("propertyForm:SysPropsPage:topButtons:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
+
         gotoDasPage();
         clickAndWait("propertyForm:serverInstTabs:serverInstProps");
-
         assertTableRowCount("propertyForm:sysPropsTable", count);
+        
+        //delete the property used to test
+        gotoDasPage();
+        clickAndWait("propertyForm:serverInstTabs:serverInstProps");
+        String prefix = getTableRowByVal("propertyForm:sysPropsTable", property, "col2:col1St");
+        String selectId = prefix + "col1:select";
+        clickByIdAction(selectId);
+        clickByIdAction("propertyForm:sysPropsTable:topActionsGroup1:button1");
+        waitforBtnDisable("propertyForm:sysPropsTable:topActionsGroup1:button1");
+        clickAndWait("propertyForm:SysPropsPage:topButtons:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     @Test

@@ -45,6 +45,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Author: jeremy_lv
@@ -67,12 +68,11 @@ public class ConnectorServiceTest extends BaseSeleniumTestClass {
         Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:ClassLoadingPolicy:ClassLoadingPolicy")));
         select.selectByVisibleText(policy);
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:connectorService:connectorService_link");
         assertEquals(timeout, getValue("propertyForm:propertySheet:propertSectionTextField:timeout:tiimeout", "value"));
         assertEquals(policy, getValue("propertyForm:propertySheet:propertSectionTextField:ClassLoadingPolicy:ClassLoadingPolicy", "value"));
-
     }
 }

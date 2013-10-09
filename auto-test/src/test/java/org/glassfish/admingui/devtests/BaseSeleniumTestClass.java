@@ -392,4 +392,12 @@ public class BaseSeleniumTestClass {
             }
         }
     }
+    
+    protected boolean isElementSaveSuccessful(String className, String msg){
+        isClassPresent(className);
+        if (driver.findElement(By.className(className)).getText().equals(msg))
+            return true;
+        else
+            return false;
+    }
 }

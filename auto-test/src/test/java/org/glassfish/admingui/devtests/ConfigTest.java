@@ -54,9 +54,10 @@ public class ConfigTest extends BaseSeleniumTestClass {
     public static final String ID_CLUSTERS_TABLE = "propertyForm:configs";
     
     @Test
-    public void testConfig() {
+    public void testCreateAndDeleteConfig() {
         final String configName= "test-config-"+generateRandomString();
-        gotoConfigPage();
+        gotoDasPage();
+        clickByIdAction("treeForm:tree:configurations:configurations_link");
         clickByIdAction("propertyForm:configs:topActionsGroup1:newButton");
         setFieldValue("propertyForm:propertySheet:propertSectionTextField:NameProp:Name", configName);
         clickByIdAction("propertyForm:propertyContentPage:topButtons:okButton");
@@ -73,10 +74,5 @@ public class ConfigTest extends BaseSeleniumTestClass {
         clickByIdAction("propertyForm:configs:topActionsGroup1:button1");
         closeAlertAndGetItsText();
         waitForAlertProcess("modalBody");
-    }
-    
-    public void gotoConfigPage(){
-        driver.get(baseUrl + "/common/index.jsf");
-        clickByIdAction("treeForm:tree:configurations:configurations_link");
     }
 }

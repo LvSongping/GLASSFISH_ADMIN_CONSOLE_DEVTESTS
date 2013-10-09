@@ -42,6 +42,7 @@ package org.glassfish.admingui.devtests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * 
@@ -68,7 +69,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", description);
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:webContainer:webContainer_link");
@@ -83,7 +84,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
             clickByIdAction("form1:basicTable:topActionsGroup1:button1");
             waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
             clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         }
     }
 
@@ -105,7 +106,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
 
         setFieldValue("form1:sessionPropSheet:sessionPropSheetSection:SessionTimeoutProp:SessionTimeout", "300");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:webContainer:webContainer_link");
@@ -116,7 +117,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         assertEquals("300", getValue("form1:sessionPropSheet:sessionPropSheetSection:SessionTimeoutProp:SessionTimeout", "value"));
         setFieldValue("form1:sessionPropSheet:sessionPropSheetSection:SessionTimeoutProp:SessionTimeout", "1800");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         //Delete all of the property after the tests finished
         if (count != 0){
@@ -128,7 +129,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
             clickByIdAction("form1:basicTable:topActionsGroup1:button1");
             waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
             clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         }
     }
 
@@ -155,7 +156,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:webContainer:webContainer_link");
@@ -177,7 +178,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
             clickByIdAction("form1:basicTable:topActionsGroup1:button1");
             waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
             clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         }
     }
 
@@ -200,7 +201,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:webContainer:webContainer_link");
@@ -211,7 +212,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
 
         setFieldValue("form1:storePropSheet:storePropSheetSection:DirectoryProp:Directory", "");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         //Delete all of the property after the tests finished
         if (count != 0){
@@ -223,7 +224,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
             clickByIdAction("form1:basicTable:topActionsGroup1:button1");
             waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
             clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         }
     }
 
@@ -253,7 +254,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", description1);
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:webContainer:webContainer_link");
@@ -265,7 +266,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", description2);
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         assertTableRowCount("form1:basicTable", count-1);
         
@@ -277,7 +278,7 @@ public class WebContainerTest extends BaseSeleniumTestClass {
             clickByIdAction("form1:basicTable:topActionsGroup1:button1");
             waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
             clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         }
     }
 }

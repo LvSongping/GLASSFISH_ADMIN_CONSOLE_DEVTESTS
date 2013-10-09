@@ -43,6 +43,7 @@ package org.glassfish.admingui.devtests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv
@@ -66,9 +67,18 @@ public class GMSTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "c");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         assertEquals(protocolMaxTrial, getValue("propertyForm:propertySheet:propertSectionTextField:fdMax:fdMax", "value"));
         assertTableRowCount("propertyForm:basicTable", count);
+        
+        //delete the property used to test
+        gotoDasPage();
+        clickAndWait("treeForm:tree:configurations:default-config:gms:gms_link");
+        clickByIdAction("propertyForm:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("propertyForm:basicTable:topActionsGroup1:button1");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 }

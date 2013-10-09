@@ -66,7 +66,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
     @Test
     public void testAppScopedResApp() {
         final String applicationName = generateRandomString();
-        deployApp(applicationName);
+        deployApp(applicationName); 
         undeployApp(applicationName);
     }
 
@@ -264,13 +264,13 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         waitForElementPresent("TtlTxt_sun4", "Edit JDBC Connection Pool");
         setFieldValue("propertyForm:sheet:generalSheet:descProp:desc", resName+" description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         //JDBC Pool Advanced Page
         clickAndWait("propertyForm:jdbcPoolSet:advanceTab");
         waitForElementPresent("TtlTxt_sun4", "Edit JDBC Connection Pool Advanced Attributes");
         setFieldValue("propertyForm:propertySheet:connectionPropertySheet:p1:va", "1");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         //JDBC Pool Properties
         clickAndWait("propertyForm:jdbcPoolSet:propertyTab");
         waitForElementPresent("TtlTxt_sun4", "Edit JDBC Connection Pool Properties");
@@ -283,7 +283,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", count);
         
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -307,7 +307,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", count);
         
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -330,7 +330,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("form1:basicTable", count);
         
         clickAndWait("form1:propertyContentPage:topButtons:cancelButton");
@@ -353,7 +353,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("form:basicTable", count);
         
         clickAndWait("form:propertyContentPage:topButtons:cancelButton");
@@ -376,7 +376,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", count);
         
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -392,7 +392,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         waitForElementPresent("TtlTxt_sun4", "Edit Work Security Map");
         setFieldValue("propertyForm:propertySheet:propertSectionTextField:descriptionProp:descAdaptor", resName+" description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
     }
@@ -407,13 +407,13 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         waitForElementPresent("TtlTxt_sun4", "Edit Connector Connection Pool");
         setFieldValue("propertyForm:propertySheet:generalPropertySheet:descProp:desc", resName+" description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         //Connector Pool Advanced Page
         clickAndWait("propertyForm:connectorPoolSet:advanceTab");
         waitForElementPresent("TtlTxt_sun4", "Edit Connector Connection Pool Advanced Attributes");
         setFieldValue("propertyForm:connectionPropertySheet:p1:va", "1");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         //Connector Pool Properties
         clickAndWait("propertyForm:connectorPoolSet:propertyTab");
         waitForElementPresent("TtlTxt_sun4", "Edit Connector Connection Pool Properties");
@@ -423,7 +423,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", "value");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", count);
         
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -446,7 +446,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", count);
         
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -467,7 +467,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
             sleep(500);
             setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", "value");
             clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
             assertTableRowCount("propertyForm:basicTable", count);
             
             clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -491,7 +491,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", count);
         
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");

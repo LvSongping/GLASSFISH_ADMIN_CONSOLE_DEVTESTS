@@ -94,6 +94,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
     public void testMonitoringApplicationsPage() {
         gotoDasPage();
         ejbTimerMonitoring("server", TARGET_SERVER_TYPE);
+        gotoDasPage();
         statefulAndStatelessBeanMonitoring("server", TARGET_SERVER_TYPE);
     }
 
@@ -105,6 +106,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
     }
 
     private void setMonitorLevel(String component, String monLevel, boolean isAll, String target, String targetType) {
+        gotoDasPage();
         goToMonitoringServicePage(target, targetType);
         waitForElementPresent("TtlTxt_sun4", "Monitoring Service");
         if (isAll) {
@@ -118,9 +120,11 @@ public class MonitoringTest extends BaseSeleniumTestClass {
         clickByIdAction("form1:basicTable:topActionsGroup1:button1");
         waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
         clickAndWait("form1:title:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         //Test whether the level has changed to monLevel or not.
         //clickAndWait("treeForm:tree:configurations:server-config:monitor:monitor_link", TRIGGER_MONITORING_SERVICE);
+        gotoDasPage();
         goToMonitoringServicePage(target, targetType);
         Select select1;
         if (isAll) {
@@ -200,7 +204,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
         select2.selectByVisibleText("thread-1");
         verifyMonitoringStat("jvmThreadInfoStats", threadData, threadHeader);
 
-        setMonitorLevel("JVM", MONITOR_LEVEL_OFF, false, target, targetType);
+        setMonitorLevel("Jvm", MONITOR_LEVEL_OFF, false, target, targetType);
     }
 
     private void monitoringWebContainerStats(String target, String targetType) {
@@ -231,6 +235,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
         setMonitorLevel("Transaction Service", MONITOR_LEVEL_HIGH, false, target, targetType);
         goToMonitoringServerPage(target, targetType);
         verifyMonitoringStat("txnServiceStats", transactionServiceData, transactionServiceHeader);
+        
         setMonitorLevel("Transaction Service", MONITOR_LEVEL_OFF, false, target, targetType);
     }
 
@@ -262,7 +267,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
 
         String dropDownId = "propertyForm:propertyContentPage:propertySheet:viewPropertySection:VsProp:View_list";
 
-        setMonitorLevel("HTTP Service", MONITOR_LEVEL_HIGH, false, target, targetType);
+        setMonitorLevel("Http Service", MONITOR_LEVEL_HIGH, false, target, targetType);
         goToMonitoringServerPage(target, targetType);
 
         Select select = new Select(driver.findElement(By.id(dropDownId)));
@@ -278,7 +283,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
         verifyMonitoringClickStat("connectionQueueStats", connectionQueueStatsData, connectionQueueStatsHeader);
         verifyMonitoringClickStat("threadPoolStats", threadPoolStatsData, threadPoolStatsHeader);
 
-        setMonitorLevel("HTTP Service", MONITOR_LEVEL_OFF, false, target, targetType);
+        setMonitorLevel("Http Service", MONITOR_LEVEL_OFF, false, target, targetType);
     }
 
     private void verifyMonitoringStat(String stat, String statData, String statHeader) {
@@ -312,15 +317,18 @@ public class MonitoringTest extends BaseSeleniumTestClass {
 
         deployApp("src/test/resources/ejb-timer-sessiontimerApp.ear", targetType, appName);
         setMonitorLevel("Web Container", MONITOR_LEVEL_HIGH, false, target, targetType);
-        setMonitorLevel("EJB Container", MONITOR_LEVEL_HIGH, false, target, targetType);
+        setMonitorLevel("Ejb Container", MONITOR_LEVEL_HIGH, false, target, targetType);
         goToMonitoringApplicationsPage(target, targetType);
 
+        Select select1 = new Select(driver.findElement(By.id("propertyForm:propertyContentPage:propertySheet:viewPropertySection:ApplicationProp:View_list")));
+        select1.selectByVisibleText("ejb-timer-sessiontimer-ejb.jar");
+        sleep(5000);
         Select select = new Select(driver.findElement(By.id(MONITORING_APPLICATIONS_COMPONENT_DROPDOWN_ID)));
         select.selectByVisibleText("TimerSingleton");
         assertEquals(statDescription, driver.findElement(By.id("propertyForm:propertyContentPage:appsTable:singletonBeanAppStats:0:col7")).getText());
 
         setMonitorLevel("Web Container", MONITOR_LEVEL_OFF, false, target, targetType);
-        setMonitorLevel("EJB Container", MONITOR_LEVEL_OFF, false, target, targetType);
+        setMonitorLevel("Ejb Container", MONITOR_LEVEL_OFF, false, target, targetType);
         undeployApp(appName, targetType);
     }
 
@@ -328,6 +336,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
         final String statDescription = "Number of potential connection leaks";
 
         setMonitorLevel(null, MONITOR_LEVEL_HIGH, true, target, targetType);
+        gotoDasPage();
         goToMonitoringApplicationsPage(target, targetType);
 
         Select select = new Select(driver.findElement(By.id(MONITORING_APPLICATIONS_APPLICATION_DROPDOWN_ID)));
@@ -346,9 +355,12 @@ public class MonitoringTest extends BaseSeleniumTestClass {
 
         deployApp("src/test/resources/ejb-ejb30-hello-sessionApp.ear", targetType, applicationName);
         setMonitorLevel("Web Container", MONITOR_LEVEL_HIGH, false, target, targetType);
-        setMonitorLevel("EJB Container", MONITOR_LEVEL_HIGH, false, target, targetType);
+        setMonitorLevel("Ejb Container", MONITOR_LEVEL_HIGH, false, target, targetType);
         goToMonitoringApplicationsPage(target, targetType);
 
+        Select select2 = new Select(driver.findElement(By.id("propertyForm:propertyContentPage:propertySheet:viewPropertySection:ApplicationProp:View_list")));
+        select2.selectByVisibleText("ejb-ejb30-hello-session-ejb.jar");
+        sleep(5000);
         Select select = new Select(driver.findElement(By.id(MONITORING_APPLICATIONS_COMPONENT_DROPDOWN_ID)));
         select.selectByVisibleText("SfulEJB");
         assertEquals(statefulStatDescription, driver.findElement(By.id("propertyForm:propertyContentPage:appsTable:sfullStats:0:col7")).getText());
@@ -358,7 +370,7 @@ public class MonitoringTest extends BaseSeleniumTestClass {
         assertEquals(statelessStatDescription, driver.findElement(By.id("propertyForm:propertyContentPage:appsTable:ejbCacheStats:0:col7")).getText());
 
         setMonitorLevel("Web Container", MONITOR_LEVEL_OFF, false, target, targetType);
-        setMonitorLevel("EJB Container", MONITOR_LEVEL_OFF, false, target, targetType);
+        setMonitorLevel("Ejb Container", MONITOR_LEVEL_OFF, false, target, targetType);
         undeployApp(applicationName, targetType);
     }
 

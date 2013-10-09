@@ -40,6 +40,8 @@
 package org.glassfish.admingui.devtests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
@@ -68,7 +70,7 @@ public class JavaMessageServiceTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:propertyContentPage:basicTable:rowGroup1:0:col3:col1St", "value");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:jmsConfiguration:jmsConfiguration_link");
@@ -77,6 +79,13 @@ public class JavaMessageServiceTest extends BaseSeleniumTestClass {
         assertEquals(interval, getValue("propertyForm:propertyContentPage:propertySheet:propertSectionTextField:intervalProp:Interval", "value"));
         assertEquals(attempts, getValue("propertyForm:propertyContentPage:propertySheet:propertSectionTextField:attemptsProp:Attempts", "value"));
         assertTableRowCount("propertyForm:propertyContentPage:basicTable", count);
+        
+        //delete the property used to test
+        clickByIdAction("propertyForm:propertyContentPage:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("propertyForm:propertyContentPage:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("propertyForm:propertyContentPage:basicTable:topActionsGroup1:button1");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     @Test

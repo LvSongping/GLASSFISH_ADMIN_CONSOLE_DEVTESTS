@@ -68,10 +68,12 @@ public class ApplicationTest extends BaseSeleniumTestClass {
     private static final String ELEMENT_FILE_FIELD = "form:sheet1:section1:prop1:fileupload";
 
     //The following test will pass ONLY if there is no cluster or standalone instance.  This is for "PE" profile
-    //TODO: We may need to DELETE all cluster and standalone instance in the beginning of this test.
     @Test
     public void testDeployWar() {
-        gotoDasPage();
+        StandaloneTest standaloneTest = new StandaloneTest();
+        ClusterTest clusterTest = new ClusterTest();
+        standaloneTest.deleteAllStandaloneInstances();
+        clusterTest.deleteAllCluster();
         final String applicationName = generateRandomString();
         clickAndWait("treeForm:tree:applications:applications_link");
         sleep(1000);
@@ -144,7 +146,7 @@ public class ApplicationTest extends BaseSeleniumTestClass {
         clickAndWait("propertyForm:domainTabs:appConfig");
         setFieldValue("propertyForm:propertySheet:propertSectionTextField:AdminTimeoutProp:AdminTimeout", adminTimeout);
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertEquals(adminTimeout, getValue("propertyForm:propertySheet:propertSectionTextField:AdminTimeoutProp:AdminTimeout", "value"));
     }
 
@@ -154,7 +156,7 @@ public class ApplicationTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:nodes:nodes_link");
         setFieldValue("propertyForm:propertySheet:propertSectionTextField:localeProp:Locale", "en_UK");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertEquals("en_UK", getValue("propertyForm:propertySheet:propertSectionTextField:localeProp:Locale", "value"));
     }
 

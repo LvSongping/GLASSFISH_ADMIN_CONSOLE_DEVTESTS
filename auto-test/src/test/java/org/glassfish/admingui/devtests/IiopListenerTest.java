@@ -45,6 +45,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv
@@ -89,7 +90,7 @@ public class IiopListenerTest extends BaseSeleniumTestClass {
         clickAndWait("propertyForm:iiopTab:sslEdit");
         setFieldValue("propertyForm:propertySheet:propertySheetSection:CertNicknameProp:CertNickname", certName);
         clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         assertEquals(certName, getValue("propertyForm:propertySheet:propertySheetSection:CertNicknameProp:CertNickname", "value"));
 
@@ -109,7 +110,7 @@ public class IiopListenerTest extends BaseSeleniumTestClass {
         select.selectByVisibleText(maxMsgSize);
         
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         assertEquals(totalConn, getValue("form1:propertySheet:propertySectionTextField:TotalConnsProp:TotalConns", "value"));
         assertEquals(maxMsgSize, getValue("form1:propertySheet:propertySectionTextField:MaxMsgSizeProp:MaxMsgSize", "value"));

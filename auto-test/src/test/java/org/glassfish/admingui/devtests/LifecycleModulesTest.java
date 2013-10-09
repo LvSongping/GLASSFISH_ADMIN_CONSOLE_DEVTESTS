@@ -59,7 +59,8 @@ public class LifecycleModulesTest extends BaseSeleniumTestClass {
         final String lifecycleName = "TestLifecycle"+generateRandomString();
         final String lifecycleClassname = "org.foo.nonexistent.Lifecyclemodule";
 
-        gotoLifecyclePage();
+        gotoDasPage();
+        clickByIdAction("treeForm:tree:lifecycles:lifecycles_link");
         clickByIdAction("propertyForm:deployTable:topActionsGroup1:newButton");
         setFieldValue("form:propertySheet:propertSectionTextField:IdTextProp:IdText", lifecycleName);
         setFieldValue("form:propertySheet:propertSectionTextField:classNameProp:classname", lifecycleClassname);
@@ -83,7 +84,8 @@ public class LifecycleModulesTest extends BaseSeleniumTestClass {
     }
 
     private void testDeleteButton(String clickId) {
-        gotoLifecyclePage();
+        gotoDasPage();
+        clickByIdAction("treeForm:tree:lifecycles:lifecycles_link");
         clickByIdAction(clickId);
         clickByIdAction("propertyForm:deployTable:topActionsGroup1:button1");
         String msg = closeAlertAndGetItsText();
@@ -96,7 +98,8 @@ public class LifecycleModulesTest extends BaseSeleniumTestClass {
     }
 
     private void testEnableButton(String clickId, String prefix) {
-        gotoLifecyclePage();
+        gotoDasPage();
+        clickByIdAction("treeForm:tree:lifecycles:lifecycles_link");
         clickByIdAction(clickId);
         clickByIdAction("propertyForm:deployTable:topActionsGroup1:button2");
         isCheckboxSelected(clickId);
@@ -119,15 +122,13 @@ public class LifecycleModulesTest extends BaseSeleniumTestClass {
         //add property and verify
         isElementPresent("propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
         int lifecyclePropCount = addTableRow("propertyForm:basicTable", "propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col2:col1St","test");
+        sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St","value");
         clickByIdAction("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("propertyForm:basicTable", lifecyclePropCount);
         assertEquals(false, driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:statusEdit:status")).isSelected());
-    }
-
-    private void gotoLifecyclePage() {
-        driver.get(baseUrl + "/common/index.jsf");
-        clickByIdAction("treeForm:tree:lifecycles:lifecycles_link");
     }
 }

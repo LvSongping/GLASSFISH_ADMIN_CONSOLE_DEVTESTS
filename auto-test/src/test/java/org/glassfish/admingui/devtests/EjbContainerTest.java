@@ -45,6 +45,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv
@@ -74,7 +75,7 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:ejbContainer:ejbContainer_link");
@@ -83,6 +84,13 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
         assertEquals(poolResize, getValue("form1:propertySheet:poolSettingSection:PoolResizeProp:PoolResize", "value"));
         assertEquals(timeout, getValue("form1:propertySheet:poolSettingSection:TimeoutProp:Timeout", "value"));
         assertTableRowCount("form1:basicTable", count);
+        
+        //delete the property used to test
+        clickByIdAction("form1:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("form1:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
+        clickAndWait("form1:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     @Test
@@ -109,7 +117,7 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:ejbContainer:ejbContainer_link");
@@ -120,6 +128,13 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
         assertEquals(poolResize, getValue("form1:propertySheet:propertySectionTextField:PoolResizeProp:PoolResize", "value"));
         assertEquals(timeout, getValue("form1:propertySheet:propertySectionTextField:TimeoutProp:Timeout", "value"));
         assertTableRowCount("form1:basicTable", count);
+        
+        //delete the property used to test
+        clickByIdAction("form1:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("form1:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
+        clickAndWait("form1:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     @Test
@@ -146,7 +161,7 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:ejbContainer:ejbContainer_link");
@@ -163,7 +178,13 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
         setFieldValue("form1:propertySheet:propertySectionTextField:MaxRedeliveryProp:MaxRedelivery", "1");
         setFieldValue("form1:propertySheet:propertySectionTextField:RedeliveryIntrProp:RedeliveryIntr", "5000");
         setFieldValue("form1:propertySheet:propertySectionTextField:TimerDatasourceProp:TimerDatasource", "");
+        
+        //delete the property used to test
+        clickByIdAction("form1:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("form1:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     //Test that the default button in EJB Settings will fill in the default value when pressed.
@@ -186,7 +207,7 @@ public class EjbContainerTest extends BaseSeleniumTestClass {
 
         //Save this, goto another tab and back
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:ejbContainer:ejbContainer_link");

@@ -97,8 +97,8 @@ public class LoggerSettingsTest extends BaseSeleniumTestClass {
 
         clickByIdAction("form1:basicTable:topActionsGroup1:button2");
         waitforBtnDisable("form1:basicTable:topActionsGroup1:button2");
-
         clickAndWait("form1:title:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:loggerSetting:loggerSetting_link");
@@ -108,13 +108,24 @@ public class LoggerSettingsTest extends BaseSeleniumTestClass {
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:loggerSetting:loggerSetting_link");
         clickAndWait("form1:loggingTabs:loggerLevels");
-
         // Add Logger
         int count = addTableRow("form1:basicTable", "form1:basicTable:topActionsGroup1:addSharedTableButton", "Logger Settings");
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col2:col1St", loggerName);
         clickAndWait("form1:title:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         assertTableRowCount("form1:basicTable", count);
-
+        
+        //delete the property used to test
+        gotoDasPage();
+        clickAndWait("treeForm:tree:configurations:server-config:loggerSetting:loggerSetting_link");
+        clickAndWait("form1:loggingTabs:loggerLevels");
+        String prefix = getTableRowByVal("form1:basicTable", loggerName, "col2:col1St");
+        String selectId = prefix + "col1:select";
+        clickByIdAction(selectId);
+        clickByIdAction("form1:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
+        clickAndWait("form1:title:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     } 
 }

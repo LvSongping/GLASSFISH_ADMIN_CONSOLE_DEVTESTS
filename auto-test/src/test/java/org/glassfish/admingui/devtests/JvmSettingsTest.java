@@ -60,8 +60,27 @@ public class JvmSettingsTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:configurations:server-config:jvmSettings:jvmSettings_link");
         if (!driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:debugEnabledProp:debug")).isSelected())
             clickByIdAction("propertyForm:propertySheet:propertSectionTextField:debugEnabledProp:debug");
+        int count = addTableRow("propertyForm:basicTable", "propertyForm:basicTable:topActionsGroup1:addSharedTableButton");
+        sleep(500);
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col2:col1St", "a");
+        sleep(500);
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", "b");
+        sleep(500);
+        setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "c");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
+        
+        gotoDasPage();
+        clickAndWait("treeForm:tree:configurations:server-config:jvmSettings:jvmSettings_link");
+        assertTableRowCount("propertyForm:basicTable", count);
         assertTrue(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:debugEnabledProp:debug")).isSelected());
+        
+        //delete the property used to test
+        clickByIdAction("propertyForm:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("propertyForm:basicTable:topActionsGroup1:button1");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     @Test
@@ -76,13 +95,22 @@ public class JvmSettingsTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", jvmOptionName);
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:jvmSettings:jvmSettings_link");
         clickAndWait("propertyForm:javaConfigTab:jvmOptions");
         sleep(1000);
         assertTableRowCount(ID_JVM_OPTIONS_TABLE, count);
+        
+        //delete the property used to test
+        String prefix = getTableRowByVal("propertyForm:basicTable", jvmOptionName, "col3:col1St");
+        String selectId = prefix + "col1:select";
+        clickByIdAction(selectId);
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("propertyForm:basicTable:topActionsGroup1:button1");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     @Test

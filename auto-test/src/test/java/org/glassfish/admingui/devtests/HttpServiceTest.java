@@ -44,6 +44,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv
@@ -78,7 +79,7 @@ public class HttpServiceTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("form1:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:httpService:httpService_link");
@@ -88,5 +89,12 @@ public class HttpServiceTest extends BaseSeleniumTestClass {
         assertEquals(bufferSize, getValue("form1:propertySheet:accessLog:accessLogBufferSize:accessLogBufferSize", "value"));
         assertEquals(logWriteInterval, getValue("form1:propertySheet:accessLog:accessLogWriteInterval:accessLogWriteInterval", "value"));
         assertTableRowCount("form1:basicTable", count);
+        
+        //delete the property used to test
+        clickByIdAction("form1:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("form1:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("form1:basicTable:topActionsGroup1:button1");
+        clickAndWait("form1:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 }

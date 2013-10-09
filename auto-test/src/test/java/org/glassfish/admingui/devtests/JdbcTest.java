@@ -59,7 +59,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
     
     @Test
     public void testPoolPing() {
-        gotoJdbcPage();
+        gotoDasPage();
         clickAndWait("treeForm:tree:resources:JDBC:connectionPoolResources:__TimerPool:link");
         clickAndWait("propertyForm:propertyContentPage:ping");
         assertTrue(driver.findElement(By.className("label_sun4")).getText().equals("Ping Succeeded"));
@@ -67,7 +67,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
 
     @Test
     public void testCreatingConnectionPool() {
-        gotoJdbcPage();
+        gotoDasPage();
         final String poolName = "jdbcPool" + generateRandomString();
         final String description = "devtest test connection pool - " + poolName;
 
@@ -89,14 +89,14 @@ public class JdbcTest extends BaseSeleniumTestClass {
         assertEquals(poolName, getText(prefix + "col1:link"));
         assertEquals(description, getText(prefix + "col4:typeDesc"));
 
-        gotoJdbcPage();
+        gotoDasPage();
         clickAndWait("treeForm:tree:resources:JDBC:connectionPoolResources:connectionPoolResources_link");
         deleteRow("propertyForm:poolTable:topActionsGroup1:button1", ID_JDBC_TABLE, poolName);
     }
 
     @Test
     public void testCreatingJdbcPoolWithoutDatabaseVendor() {
-        gotoJdbcPage();
+        gotoDasPage();
         final String poolName = "jdbcPool" + generateRandomString();
         final String description = "devtest test connection pool - " + poolName;
 
@@ -121,7 +121,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
 
     @Test
     public void testJdbcResources() {
-        gotoJdbcPage();
+        gotoDasPage();
         final String jndiName = "jdbcResource" + generateRandomString();
         final String description = "devtest test jdbc resource - " + jndiName;
 
@@ -291,7 +291,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
         clickByIdAction("propertyForm:propertySheet:propertSectionTextField:statusProp:enabled");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
         assertTrue(!driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:statusProp:enabled")).isSelected());
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
         isElementPresent(clickId);
     }
@@ -302,13 +302,9 @@ public class JdbcTest extends BaseSeleniumTestClass {
         clickByIdAction("propertyForm:propertySheet:propertSectionTextField:statusProp:enabled");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
         assertTrue(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:statusProp:enabled")).isSelected());
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
         isElementPresent(clickId);
     }
 
-    public void gotoJdbcPage(){
-        driver.get(baseUrl + "/common/index.jsf");
-    }
-    
 }

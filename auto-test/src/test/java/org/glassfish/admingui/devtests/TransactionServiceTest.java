@@ -79,13 +79,22 @@ public class TransactionServiceTest extends BaseSeleniumTestClass {
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col4:col1St", "description");
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
+        gotoDasPage();
+        clickAndWait("treeForm:tree:configurations:server-config:transactionService:transactionService_link");
         assertTrue(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:onRestartProp:enabled")).isSelected());
         assertEquals(timeout, getValue("propertyForm:propertySheet:propertSectionTextField:timeoutProp:Timeout", "value"));
         assertEquals(retry, getValue("propertyForm:propertySheet:propertSectionTextField:retryProp:Retry", "value"));
         assertEquals("commit", getValue("propertyForm:propertySheet:propertSectionTextField:heuristicProp:HeuristicDecision", "value"));
         assertEquals(keypoint, getValue("propertyForm:propertySheet:propertSectionTextField:keyPointProp:Keypoint", "value"));
         assertTableRowCount("propertyForm:basicTable", count);
+        
+        //delete the property used to test
+        clickByIdAction("propertyForm:basicTable:_tableActionsTop:_selectMultipleButton:_selectMultipleButton_image");
+        clickByIdAction("propertyForm:basicTable:topActionsGroup1:button1");
+        waitforBtnDisable("propertyForm:basicTable:topActionsGroup1:button1");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 }

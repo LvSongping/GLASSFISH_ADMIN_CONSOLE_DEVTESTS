@@ -46,6 +46,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * 
  * @author Jeremy Lv
@@ -72,7 +73,7 @@ public class SecurityTest extends BaseSeleniumTestClass {
                 clickByIdAction("propertyForm:basicTable:topActionsGroup1:button1");
                 waitforBtnDisable("propertyForm:basicTable:topActionsGroup1:button1");
                 clickByIdAction("propertyForm:propertyContentPage:topButtons:saveButton");
-                isClassPresent("label_sun4");
+                assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
             }
             sleep(1000);
             int beforeCount = getTableRowCount("propertyForm:basicTable");
@@ -80,11 +81,11 @@ public class SecurityTest extends BaseSeleniumTestClass {
             gotoDasPage();
             clickAndWait("treeForm:tree:configurations:"+  configName +":security:security_link");
             
-            if (!driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:securityManagerProp:sun_checkbox1269")).isSelected()){
-                clickByIdAction("propertyForm:propertySheet:propertSectionTextField:securityManagerProp:sun_checkbox1269");
+            if (!driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:securityManagerProp:sun_checkbox380")).isSelected()){
+                clickByIdAction("propertyForm:propertySheet:propertSectionTextField:securityManagerProp:sun_checkbox380");
             }
             clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
-            isClassPresent("label_sun4");
+            assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
             
             gotoDasPage();
             clickAndWait("treeForm:tree:configurations:"+  configName +":jvmSettings:jvmSettings_link");
@@ -293,7 +294,7 @@ public class SecurityTest extends BaseSeleniumTestClass {
         setFieldValue("propertyForm:propertySheet:propertSectionTextField:confirmPasswordProp:ConfirmPassword", userPassword);
         clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
         closeAlertAndGetItsText();
-        isClassPresent("label_sun4");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
     }
 
     /*
@@ -407,6 +408,7 @@ public class SecurityTest extends BaseSeleniumTestClass {
     }
 
     public void addUserToRealm(String configName, String realmName, String userName, String password) {
+        gotoDasPage();
         clickAndWait("treeForm:tree:configurations:" + configName + ":security:realms:realms_link");
         
         String prefix = getTableRowByValue("propertyForm:realmsTable", realmName, "col1");
@@ -414,6 +416,7 @@ public class SecurityTest extends BaseSeleniumTestClass {
 
         String clickId = prefix + "col1:link";
         clickByIdAction(clickId);
+        waitForElementPresent("TtlTxt_sun4","Edit Realm");
         clickAndWait("form1:propertyContentPage:manageUsersButton");
         clickAndWait("propertyForm:users:topActionsGroup1:newButton");
 

@@ -45,7 +45,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 /**
- * 
+ * It is used test the Connector-->admin object resource page
  * @author Jeremy Lv
  *
  */
