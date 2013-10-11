@@ -115,6 +115,7 @@ public class LifecycleModulesTest extends BaseSeleniumTestClass {
     
     private void testDisableButton(String clickId, String prefix) {
         clickByIdAction(clickId);
+        isElementPresent("propertyForm:deployTable:topActionsGroup1:button3");
         clickByIdAction("propertyForm:deployTable:topActionsGroup1:button3");
         isCheckboxSelected(clickId);
         clickByIdAction(prefix + "col1:link");

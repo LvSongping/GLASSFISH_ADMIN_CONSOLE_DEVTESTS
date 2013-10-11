@@ -82,6 +82,7 @@ public class NodeTest extends BaseSeleniumTestClass {
         clickAndWait(ID_NODE_TREE_LINK);
         clickAndWait(ID_NEW_NODE_BUTTON);
 
+        isElementPresent(ID_CREATE_NAME_FIELD);
         setFieldValue(ID_CREATE_NAME_FIELD, nodeName);
         setFieldValue(ID_NODEHOST_FIELD, "NodeHOST");
         setFieldValue(ID_NODEDIRECTORY_FIELD, "NodeDirectory");
@@ -222,7 +223,6 @@ public class NodeTest extends BaseSeleniumTestClass {
         assertEquals("34", getValue("propertyForm:propertySheet:sshConnectorSection:sshport:sshport", "value"));
         Select select3 = new Select(driver.findElement(By.id("propertyForm:propertySheet:sshConnectorSection:psSelected:psSelected")));
         Select select4 = new Select(driver.findElement(By.id("propertyForm:propertySheet:sshConnectorSection:pswdAlias:pswdAlias")));
-        System.out.println(select3.getFirstSelectedOption().getAttribute("value"));
         assertTrue(select3.getFirstSelectedOption().getAttribute("value").equals("3"));
         assertTrue(select4.getFirstSelectedOption().getAttribute("value").equals(pswdAliasName));
         clickAndWait("propertyForm:propertyContentPage:topButtons:cancelButton");
@@ -369,6 +369,7 @@ public class NodeTest extends BaseSeleniumTestClass {
     private void createInstance(String instanceName, String nodeName){
         clickAndWait(ID_STANDALONE_TREE_LINK);
         clickAndWait("propertyForm:instancesTable:topActionsGroup1:newButton");
+        isElementPresent("propertyForm:propertySheet:propertSectionTextField:NameTextProp:NameText");
         setFieldValue("propertyForm:propertySheet:propertSectionTextField:NameTextProp:NameText", instanceName);
         Select select = new Select(driver.findElement(By.id("propertyForm:propertySheet:propertSectionTextField:node:node")));
         select.selectByVisibleText(nodeName);

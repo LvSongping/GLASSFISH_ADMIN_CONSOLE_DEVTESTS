@@ -48,7 +48,6 @@ import org.junit.Test;
  */
 public class RegistrationTest extends BaseSeleniumTestClass {
 
-//     //this test connects to an external site on the internet. It will fail if the site is down or there is no internet.
 //    //need to be finished in the future
 //    @Test
 //    public void testRegistration() {

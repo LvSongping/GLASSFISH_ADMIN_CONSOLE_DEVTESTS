@@ -189,8 +189,9 @@ public class WebContainerTest extends BaseSeleniumTestClass {
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:webContainer:webContainer_link");
         clickAndWait("form1:webContainerTabs:storeTab");
-        waitForElementPresent("TtlTxt_sun4", "Store Properties");
+//        waitForElementPresent("TtlTxt_sun4", "Store Properties");
 
+        isElementPresent("form1:storePropSheet:storePropSheetSection:DirectoryProp:Directory");
         setFieldValue("form1:storePropSheet:storePropSheetSection:DirectoryProp:Directory", directory);
         int count = addTableRow("form1:basicTable", "form1:basicTable:topActionsGroup1:addSharedTableButton");
 

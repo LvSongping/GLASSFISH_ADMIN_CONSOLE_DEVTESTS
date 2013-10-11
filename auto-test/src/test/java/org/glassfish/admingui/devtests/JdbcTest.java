@@ -74,6 +74,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:JDBC:connectionPoolResources:connectionPoolResources_link");
         clickAndWait("propertyForm:poolTable:topActionsGroup1:newButton");
 
+        isElementPresent("propertyForm:propertyContentPage:propertySheet:generalPropertySheet:jndiProp:name");
         setFieldValue("propertyForm:propertyContentPage:propertySheet:generalPropertySheet:jndiProp:name", poolName);
         Select select = new Select(driver.findElement(By.id("propertyForm:propertyContentPage:propertySheet:generalPropertySheet:resTypeProp:resType")));
         select.selectByVisibleText("javax.sql.DataSource");
@@ -103,6 +104,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:JDBC:connectionPoolResources:connectionPoolResources_link");
         clickAndWait("propertyForm:poolTable:topActionsGroup1:newButton");
 
+        isElementPresent("propertyForm:propertyContentPage:propertySheet:generalPropertySheet:jndiProp:name");
         setFieldValue("propertyForm:propertyContentPage:propertySheet:generalPropertySheet:jndiProp:name", poolName);
         Select select = new Select(driver.findElement(By.id("propertyForm:propertyContentPage:propertySheet:generalPropertySheet:resTypeProp:resType")));
         select.selectByVisibleText("javax.sql.ConnectionPoolDataSource");
@@ -133,6 +135,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:JDBC:jdbcResources:jdbcResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:nameNew:name");
         setFieldValue("form:propertySheet:propertSectionTextField:nameNew:name", jndiName);
         setFieldValue("form:propertySheet:propertSectionTextField:descProp:desc", description);
         int count = addTableRow("form:basicTable", "form:basicTable:topActionsGroup1:addSharedTableButton");
@@ -175,6 +178,7 @@ public class JdbcTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:JDBC:jdbcResources:jdbcResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:nameNew:name");
         setFieldValue("form:propertySheet:propertSectionTextField:nameNew:name", jndiName);
         setFieldValue("form:propertySheet:propertSectionTextField:descProp:desc", description);
         int count = addTableRow("form:basicTable", "form:basicTable:topActionsGroup1:addSharedTableButton");
@@ -241,7 +245,8 @@ public class JdbcTest extends BaseSeleniumTestClass {
             clusterTest.createCluster(target);
         }
         clickAndWait("treeForm:tree:resources:JDBC:jdbcResources:jdbcResources_link");
-        clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
+        isElementPresent("propertyForm:resourcesTable:topActionsGroup1:newButton");
+        clickByIdAction("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
         setFieldValue("form:propertySheet:propertSectionTextField:nameNew:name", jndiName);
         setFieldValue("form:propertySheet:propertSectionTextField:descProp:desc", description);

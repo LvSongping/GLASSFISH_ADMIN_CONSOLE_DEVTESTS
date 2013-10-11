@@ -101,7 +101,10 @@ public class MonitoringTest extends BaseSeleniumTestClass {
     //Monitoring service related methods.
     private void goToMonitoringServicePage(String target, String targetType) {
         goToMonitoringApplicationsPage(target, targetType);
-        waitForElementPresent("TtlTxt_sun4", "Application Monitoring");
+        while(!driver.findElement(By.linkText("Configure Monitoring")).isDisplayed()){
+            sleep(500);
+        }
+//        waitForElementPresent("TtlTxt_sun4", "Application Monitoring");
         driver.findElement(By.linkText("Configure Monitoring")).click();
     }
 

@@ -64,6 +64,7 @@ public class JndiTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:jndi:customResources:customResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext");
         setFieldValue("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext", resourceName);
         Select select = new Select(driver.findElement(By.id("form:propertySheet:propertSectionTextField:cp:Classname")));
         select.selectByVisibleText("java.lang.Double");
@@ -110,6 +111,7 @@ public class JndiTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:jndi:customResources:customResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext");
         setFieldValue("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext", resourceName);
         Select select = new Select(driver.findElement(By.id("form:propertySheet:propertSectionTextField:cp:Classname")));
         select.selectByVisibleText("java.lang.Double");
@@ -178,6 +180,7 @@ public class JndiTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:jndi:externalResources:externalResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext");
         setFieldValue("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext", resourceName);
         Select select = new Select(driver.findElement(By.id("form:propertySheet:propertSectionTextField:cp:Classname")));
         select.selectByVisibleText("java.lang.Double");
@@ -222,6 +225,7 @@ public class JndiTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:jndi:externalResources:externalResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext");
         setFieldValue("form:propertySheet:propertSectionTextField:jndiTextProp:jnditext", resourceName);
         Select select = new Select(driver.findElement(By.id("form:propertySheet:propertSectionTextField:cp:Classname")));
         select.selectByVisibleText("java.lang.Double");

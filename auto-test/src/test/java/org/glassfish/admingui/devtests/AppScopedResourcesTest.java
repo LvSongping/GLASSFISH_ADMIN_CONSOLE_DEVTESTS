@@ -322,6 +322,7 @@ public class AppScopedResourcesTest extends BaseSeleniumTestClass {
         clickByIdAction(clickId);
         waitForElementPresent("TtlTxt_sun4", "Edit Custom Resource");
         setFieldValue("form1:propertySheet:propertSectionTextField:descProp:desc", resName+" description");
+        sleep(5000);
         int count = addTableRow("form1:basicTable", "form1:basicTable:topActionsGroup1:addSharedTableButton");
         sleep(500);
         setFieldValue("form1:basicTable:rowGroup1:0:col2:col1St", "property"+generateRandomString());

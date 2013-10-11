@@ -64,7 +64,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.thoughtworks.selenium.Selenium;
 /**
  * 
- * @author jeremylv
+ * @author Jeremy Lv
  *
  */
 public class BaseSeleniumTestClass {

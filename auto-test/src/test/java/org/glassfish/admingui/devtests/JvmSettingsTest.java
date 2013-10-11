@@ -90,7 +90,7 @@ public class JvmSettingsTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:configurations:server-config:jvmSettings:jvmSettings_link");
         clickAndWait("propertyForm:javaConfigTab:jvmOptions");
 
-        sleep(1000);
+        sleep(5000);
         int count = addTableRow(ID_JVM_OPTIONS_TABLE, "propertyForm:basicTable:topActionsGroup1:addSharedTableButton", "Options");
         sleep(500);
         setFieldValue("propertyForm:basicTable:rowGroup1:0:col3:col1St", jvmOptionName);
@@ -100,7 +100,7 @@ public class JvmSettingsTest extends BaseSeleniumTestClass {
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:jvmSettings:jvmSettings_link");
         clickAndWait("propertyForm:javaConfigTab:jvmOptions");
-        sleep(1000);
+        sleep(5000);
         assertTableRowCount(ID_JVM_OPTIONS_TABLE, count);
         
         //delete the property used to test
@@ -161,6 +161,9 @@ public class JvmSettingsTest extends BaseSeleniumTestClass {
             st.startInstance(instanceName);
         }
 
+        isElementPresent("treeForm:tree:configurations:"+ configName +":"+ configName +"_turner:"+ configName +"_turner_image");
+        clickByIdAction("treeForm:tree:configurations:"+ configName +":"+ configName +"_turner:"+ configName +"_turner_image");
+        isElementPresent("treeForm:tree:configurations:"+ configName +":jvmSettings:jvmSettings_link");
         clickAndWait("treeForm:tree:configurations:"+ configName +":jvmSettings:jvmSettings_link");
         clickAndWait("propertyForm:javaConfigTab:profiler" );
 

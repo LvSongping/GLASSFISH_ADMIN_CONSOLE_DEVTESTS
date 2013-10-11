@@ -67,6 +67,7 @@ public class JavaMailTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:mailResources:mailResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:nameNew:name");
         setFieldValue("form:propertySheet:propertSectionTextField:nameNew:name", resourceName);
         setFieldValue("form:propertySheet:propertSectionTextField:hostProp:host", "localhost");
         setFieldValue("form:propertySheet:propertSectionTextField:userProp:user", "user");
@@ -117,6 +118,7 @@ public class JavaMailTest extends BaseSeleniumTestClass {
         clickAndWait("treeForm:tree:resources:mailResources:mailResources_link");
         clickAndWait("propertyForm:resourcesTable:topActionsGroup1:newButton");
 
+        isElementPresent("form:propertySheet:propertSectionTextField:nameNew:name");
         setFieldValue("form:propertySheet:propertSectionTextField:nameNew:name", resourceName);
         setFieldValue("form:propertySheet:propertSectionTextField:hostProp:host", "localhost");
         setFieldValue("form:propertySheet:propertSectionTextField:userProp:user", "user");
