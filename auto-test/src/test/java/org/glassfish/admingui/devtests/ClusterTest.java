@@ -65,7 +65,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     
     
     //Case 1:
-//    @Test
+    @Test
     public void testClusterCreationAndDeletion() throws Exception {
         String clusterName = "clusterName" + generateRandomString();
         String instanceName = "instanceName"     + generateRandomString();
@@ -108,7 +108,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
 
     //Case 3
-//    @Test
+    @Test
     public void testMigrateEjbTimers() {
         String clusterName = "clusterName" + generateRandomString();
         String instanceName1 = "instanceName" + generateRandomString();
@@ -128,7 +128,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
 
     //Case 4
-//    @Test
+    @Test
     public void verifyClusterGeneralInformationPage() {
         String clusterName = "clusterName" + generateRandomString();
         String instanceName1 = "instanceName" + generateRandomString();
@@ -141,7 +141,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
 
     //Case 5:
-//    @Test
+    @Test
     public void testClusterInstancesTab() {
         String clusterName = "clusterName" + generateRandomString();
         String instanceName1 = "instanceName" + generateRandomString();
@@ -165,7 +165,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
     
     //Case 6
-//    @Test
+    @Test
     public void testProperties() {
         String clusterName = "clusterName" + generateRandomString();
         String instanceName1 = "instanceName" + generateRandomString();
@@ -196,7 +196,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
     
     //Case 7
-//    @Test
+    @Test
     public void testClusterWithJmsOptions() {
         String clusterName = "cluster" + generateRandomString();
         gotoClusterPage();
@@ -233,7 +233,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
     
     //Case 8
-//    @Test
+    @Test
     public void testClusterWithEnhancedJmsOptions() {
         String clusterName = "cluster" + generateRandomString();
         gotoClusterPage();
@@ -266,7 +266,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
     
     //Case 9
-//    @Test
+    @Test
     public void testClusterWithBadJmsOptions() {
         String clusterName = "cluster" + generateRandomString();
         gotoClusterPage();
@@ -295,8 +295,8 @@ public class ClusterTest extends BaseSeleniumTestClass {
         
         assertTrue((driver.findElement(By.className("header_sun4")).getText().indexOf(" An error occurred") != -1));
     }
-    
-//    @Test
+    //case 10
+    @Test
     public void testClusterResourcesPage() {
         final String jndiName = "jdbcResource" + generateRandomString();
         String target = "cluster" + generateRandomString();
@@ -334,8 +334,8 @@ public class ClusterTest extends BaseSeleniumTestClass {
         jdbcTest.deleteJDBCResource(jndiName, target, "cluster");
     }
 
-    //Case 10
-//    @Test
+    //Case 11
+    @Test
     public void testMultiDeleteClusters() {
         String clusterName = "clusterName" + generateRandomString();
         String clusterName1 = "clusterName" + generateRandomString();
