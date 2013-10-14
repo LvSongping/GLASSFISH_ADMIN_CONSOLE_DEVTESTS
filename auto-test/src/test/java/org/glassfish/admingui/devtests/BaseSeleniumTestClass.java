@@ -355,7 +355,7 @@ public class BaseSeleniumTestClass {
     }
     
     public void gotoDasPage() {
-        driver.get(baseUrl + "/common/index.jsf");
+        driver.get(baseUrl + "common/index.jsf");
     }
     
     public void waitForElementPresent(String className, String value) {
