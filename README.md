@@ -8,19 +8,26 @@ mac platform.
 
 #Preparation and Steps:
 1). Download the firefox and install it, On my platform, I have downloaded and installed 
-the firefox revision 19.0
+the firefox version 19.0
 
 2). Download the selenium IDE plugin and installed, On my platform, I have installed the 
 selenium IDE 2.4.0
 
-3). Checkout all of the latest version of glassfish source(https://svn.java.net/svn/glassfish~svn/trunk/main), 
-This is because the tests will be contribute to the glassfish team in the future if they need. 
+3). Checkout the the tests from the github(https://github.com/LvSongping/GLASSFISH_ADMIN_CONSOLE_DEVTESTS/tree/master/auto-test) 
+to your hard disk.
 
-4). Checkout the the tests from the github(https://github.com/LvSongping/GLASSFISH_ADMIN_CONSOLE_DEVTESTS/tree/master/auto-test) 
-and put the all of the codes under /GF_SOURCE/appserv/admingui.
+4). Open a terminal and access to the root directory of auto-tests, Then execute the command 
+as "mvn test" to run all of the tests
 
-5). Open a terminal and access to the directory of /GF_SOURCE/appserv/admingui/auto-tests, Then 
-execute the command as "mvn eclipse:eclipse -DeclipseResource=true" to build the project as an
-eclipse project.(I use the eclipse IDE to develop the code)
+5). If some of the test cases are failed, you can also rerun the error or failed test cases 
+using the command as "mvn test -Dtest=[ClassName]#[MethodName]" to confirm related test 
+cases.(if the failure test cases passed at the second time, we can regard the failure test 
+case as a passed case)
 
-6). Import the java project to the eclipse and then you can run all of the tests as you wish.
+#Note:
+The expected test results listed as follows:
+test cases number:110
+passed number:110
+failed number:0
+error number:0
+

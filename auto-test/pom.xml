@@ -49,7 +49,6 @@
         <groupId>org.glassfish.main.admingui</groupId>
         <artifactId>admingui</artifactId>
         <version>4.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>console-auto-tests</artifactId>
     <version>4.0.1-SNAPSHOT</version>

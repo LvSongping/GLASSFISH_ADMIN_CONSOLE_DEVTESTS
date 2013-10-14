@@ -107,7 +107,8 @@ public class AdminServiceTest extends BaseSeleniumTestClass {
         setFieldValue("propertyForm:propertySheet:propertySheetSection:CertNicknameProp:CertNickname", nickname);
         setFieldValue("propertyForm:propertySheet:propertySheetSection:keystore:keystore", keystore);
         setFieldValue("propertyForm:propertySheet:propertySheetSection:maxCertLength:maxCertLength", maxCertLength);
-        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+//        clickAndWait("propertyForm:propertyContentPage:topButtons:saveButton");
+        clickAndWait("propertyForm:propertyContentPage:topButtons:newButton");
         assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
         gotoDasPage();
         clickAndWait("treeForm:tree:configurations:server-config:adminService:adminService_link");
