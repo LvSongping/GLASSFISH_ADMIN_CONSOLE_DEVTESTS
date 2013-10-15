@@ -40,6 +40,8 @@
 
 package org.glassfish.admingui.devtests;
 
+import org.junit.Test;
+
 /**
  * 
  * @author Jeremy Lv
@@ -48,9 +50,9 @@ package org.glassfish.admingui.devtests;
 public class RegistrationTest extends BaseSeleniumTestClass {
 
 //    //need to be finished in the future
-//    @Test
+    @Test
     public void testRegistration() {
-        gotoDasPage();
+//        gotoDasPage();
     }
 }
 
