@@ -40,7 +40,6 @@
 
 package org.glassfish.admingui.devtests;
 
-import org.junit.Test;
 /**
  * 
  * @author Jeremy Lv
@@ -50,8 +49,8 @@ public class RegistrationTest extends BaseSeleniumTestClass {
 
 //    //need to be finished in the future
 //    @Test
-//    public void testRegistration() {
-//        driver.get(baseUrl +  "/common/registration.jsf");
-//    }
+    public void testRegistration() {
+        gotoDasPage();
+    }
 }
 

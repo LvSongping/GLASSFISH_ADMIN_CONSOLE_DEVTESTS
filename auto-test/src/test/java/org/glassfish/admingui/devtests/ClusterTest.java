@@ -432,7 +432,7 @@ public class ClusterTest extends BaseSeleniumTestClass {
     }
     
     public void gotoClusterPage(){
-        driver.get(baseUrl + "/common/index.jsf");
+        driver.get(baseUrl + "common/index.jsf");
         clickByIdAction("treeForm:tree:clusterTreeNode:clusterTreeNode_link");
     }
     

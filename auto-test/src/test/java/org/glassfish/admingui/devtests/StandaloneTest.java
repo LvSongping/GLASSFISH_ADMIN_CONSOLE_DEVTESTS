@@ -234,7 +234,7 @@ public class StandaloneTest  extends BaseSeleniumTestClass {
     }
 
     public  void gotoStandaloneInstancesPage() {
-        driver.get(baseUrl + "/common/index.jsf");
+        driver.get(baseUrl + "common/index.jsf");
         clickAndWait("treeForm:tree:standaloneTreeNode:standaloneTreeNode_link");
     }
 
