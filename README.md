@@ -16,10 +16,13 @@ selenium IDE 2.4.0
 3). Checkout the the tests from the github(https://github.com/LvSongping/GLASSFISH_ADMIN_CONSOLE_DEVTESTS/tree/master/auto-test) 
 to your hard disk.
 
-4). Open a terminal and access to the root directory of auto-tests, Then execute the command 
+4). Before ran the tests, you need to restart the glassfish domain and try to access admin console's page(http://localhost:4848/common/index.jsf) 
+to make sure the GUI is available
+
+5). Open a terminal window and access to the root directory of auto-tests, Then execute the command 
 as "mvn test" to run all of the tests
 
-5). If some of the test cases are failed, you can also rerun the error or failed test cases 
+6). If some of the test cases are failed, you can also rerun the error or failed test cases 
 using the command as "mvn test -Dtest=[ClassName]#[MethodName]" to confirm related test 
 cases.(if the failure test cases passed at the second time, we can regard the failure test 
 case as a passed case)
