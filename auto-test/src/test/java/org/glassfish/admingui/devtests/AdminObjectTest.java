@@ -40,6 +40,8 @@
 package org.glassfish.admingui.devtests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
@@ -51,7 +53,7 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class AdminObjectTest extends BaseSeleniumTestClass {
 
-//    @Test
+    @Test
     public void testAdminObjectResources() throws Exception {
         final String resName = "adminObject" + generateRandomString();
         final String description = "Admin Object Resource - " + resName;
@@ -168,6 +170,7 @@ public class AdminObjectTest extends BaseSeleniumTestClass {
         select1.selectByVisibleText("server");
         clickByIdAction("form:targetSection:targetSectionId:addRemoveProp:commonAddRemove:commonAddRemove_removeButton");
         clickByIdAction("form:propertyContentPage:topButtons:saveButton");
+        assertTrue(isElementSaveSuccessful("label_sun4","New values successfully saved."));
 
         // Delete admin object resource
         gotoDasPage();
