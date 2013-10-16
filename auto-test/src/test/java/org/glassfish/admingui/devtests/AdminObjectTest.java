@@ -51,7 +51,7 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class AdminObjectTest extends BaseSeleniumTestClass {
 
-    @Test
+//    @Test
     public void testAdminObjectResources() throws Exception {
         final String resName = "adminObject" + generateRandomString();
         final String description = "Admin Object Resource - " + resName;
@@ -170,6 +170,7 @@ public class AdminObjectTest extends BaseSeleniumTestClass {
         clickByIdAction("form:propertyContentPage:topButtons:saveButton");
 
         // Delete admin object resource
+        gotoDasPage();
         clickAndWait("treeForm:tree:resources:Connectors:adminObjectResources:adminObjectResources_link");
         deleteRow("propertyForm:resourcesTable:topActionsGroup1:button1", "propertyForm:resourcesTable", resName);
 

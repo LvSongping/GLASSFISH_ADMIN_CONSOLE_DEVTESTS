@@ -44,27 +44,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.glassfish.main.admingui</groupId>
-        <artifactId>admingui</artifactId>
-        <version>4.0.1-SNAPSHOT</version>
-    </parent>
+    <groupId>org.glassfish.test.admingui</groupId>
     <artifactId>console-auto-tests</artifactId>
     <version>4.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Admin Console Auto Tests</name>
     <description>This module contains the dev tests for the admin console</description>
-
        <dependencies>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>2.32.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.opera</groupId>
-                <artifactId>operadriver</artifactId>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -73,23 +63,6 @@
                 <scope>test</scope>
             </dependency>
         </dependencies>
-
-        <dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>com.opera</groupId>
-                    <artifactId>operadriver</artifactId>
-                    <version>1.2</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.seleniumhq.selenium</groupId>
-                            <artifactId>selenium-remote-driver</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </dependencyManagement>
-
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -120,9 +93,6 @@
                 </dependencies>
                 <configuration>
                     <forkMode>never</forkMode>
-                    <!--
-                    <parallel>classes</parallel>
-                    -->
                 </configuration>
             </plugin>
             <plugin>

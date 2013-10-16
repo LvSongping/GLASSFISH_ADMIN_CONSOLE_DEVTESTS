@@ -2,7 +2,7 @@
 ================================
 #Annotation: 
 All of the test cases can't be ran on the windows platform because 
-the firefox can't support the ajax and JSF based on the windows platform very well.
+the firefox can't support the JSF based on the windows platform very well.
 If you want to ran the tests, please check out all of the codes to the linux, ubuntu or
 mac platform.
 
