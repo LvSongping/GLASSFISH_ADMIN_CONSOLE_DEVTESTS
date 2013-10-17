@@ -101,10 +101,16 @@ public class ApplicationTest extends BaseSeleniumTestClass {
         setFieldValue(ELEMENT_APP_NAME, applicationName);
         clickAndWait(ELEMENT_UPLOAD_BUTTON);
 
-        //add some sleep time here to wait for the webdriver element located
-        sleep(10000);
         gotoDasPage();
-        clickAndWait("treeForm:tree:applications:applications_link");
+        while(true){
+            try {
+                if(driver.findElement(By.id("treeForm:tree:applications:applications_link")).isDisplayed())
+                    break;
+            } catch(Exception e) {
+                gotoDasPage();
+            }
+        }
+        clickByIdAction("treeForm:tree:applications:applications_link");
         sleep(1000);
         int postCount = getTableRowCount(ELEMENT_DEPLOY_TABLE);
         assertTrue (preCount < postCount);
